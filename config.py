@@ -13,21 +13,22 @@ FECHA_FIN    = datetime.today().strftime("%Y-%m-%d")
 # ---------------------------------------------------------------------------
 # Portafolio de activos - Yahoo Finance
 # Formato: (simbolo_yahoo, simbolo, nombre_legible, mercado)
-#   Para BVC (Colombia): agregar sufijo .BO
-#   Para NYSE/NASDAQ: usar ticker directo
+#   Nota: varios tickers locales BVC no están disponibles directamente en Yahoo.
+#   Se usan tickers válidos en Yahoo (incluyendo ADRs de la región) para asegurar
+#   reproducibilidad del ETL.
 # ---------------------------------------------------------------------------
 ACTIVOS_YAHOO = [
-    # --- Acciones BVC (Colombia) ---
-    {"simbolo_yahoo": "ECOPETROL.BO", "simbolo": "ECOPETROL", "nombre": "Ecopetrol S.A.",         "mercado": "BVC"},
-    {"simbolo_yahoo": "ISA.BO",       "simbolo": "ISA",       "nombre": "Interconexión Eléctrica","mercado": "BVC"},
-    {"simbolo_yahoo": "GEB.BO",       "simbolo": "GEB",       "nombre": "Grupo Energía Bogotá",   "mercado": "BVC"},
-    {"simbolo_yahoo": "GRUPOSURA.BO", "simbolo": "GRUPOSURA", "nombre": "Grupo Sura",             "mercado": "BVC"},
-    {"simbolo_yahoo": "NUTRESA.BO",   "simbolo": "NUTRESA",   "nombre": "Grupo Nutresa",          "mercado": "BVC"},
-    {"simbolo_yahoo": "CIB.BO",       "simbolo": "BANCOLOMBIA","nombre": "Bancolombia",           "mercado": "BVC"},
-    {"simbolo_yahoo": "CEMARGOS.BO",  "simbolo": "CEMARGOS",  "nombre": "Cementos Argos",        "mercado": "BVC"},
-    {"simbolo_yahoo": "CORFICOLCF.BO","simbolo": "CORFICOLCF","nombre": "Corficolombiana",       "mercado": "BVC"},
-    {"simbolo_yahoo": "PFBCOLOM.BO",  "simbolo": "PFBCOLOM",  "nombre": "Bancolombia Pref.",     "mercado": "BVC"},
-    {"simbolo_yahoo": "PFDAVVNDA.BO", "simbolo": "PFDAVVNDA", "nombre": "Davivienda Pref.",      "mercado": "BVC"},
+    # --- Acciones/ADRs LatAm disponibles en Yahoo ---
+    {"simbolo_yahoo": "EC",   "simbolo": "EC",   "nombre": "Ecopetrol ADR",            "mercado": "NYSE"},
+    {"simbolo_yahoo": "CIB",  "simbolo": "CIB",  "nombre": "Bancolombia ADR",          "mercado": "NYSE"},
+    {"simbolo_yahoo": "AVAL", "simbolo": "AVAL", "nombre": "Grupo Aval ADR",           "mercado": "NYSE"},
+    {"simbolo_yahoo": "BAP",  "simbolo": "BAP",  "nombre": "Credicorp",                "mercado": "NYSE"},
+    {"simbolo_yahoo": "ITUB", "simbolo": "ITUB", "nombre": "Itaú Unibanco",            "mercado": "NYSE"},
+    {"simbolo_yahoo": "PBR",  "simbolo": "PBR",  "nombre": "Petrobras",                "mercado": "NYSE"},
+    {"simbolo_yahoo": "VALE", "simbolo": "VALE", "nombre": "Vale S.A.",                "mercado": "NYSE"},
+    {"simbolo_yahoo": "NU",   "simbolo": "NU",   "nombre": "Nu Holdings",              "mercado": "NYSE"},
+    {"simbolo_yahoo": "GGAL", "simbolo": "GGAL", "nombre": "Grupo Financiero Galicia", "mercado": "NASDAQ"},
+    {"simbolo_yahoo": "SPY",  "simbolo": "SPY",  "nombre": "SPDR S&P 500 ETF",         "mercado": "NYSE"},
     # --- ETFs Globales ---
     {"simbolo_yahoo": "VOO",          "simbolo": "VOO",       "nombre": "Vanguard S&P 500 ETF",  "mercado": "NYSE"},
     {"simbolo_yahoo": "CSPX.L",       "simbolo": "CSPX",      "nombre": "iShares Core S&P 500",  "mercado": "LSE"},
@@ -38,7 +39,7 @@ ACTIVOS_YAHOO = [
     {"simbolo_yahoo": "XLE",          "simbolo": "XLE",       "nombre": "Energy Select SPDR",    "mercado": "NYSE"},
     {"simbolo_yahoo": "EEM",          "simbolo": "EEM",       "nombre": "iShares MSCI EM",       "mercado": "NYSE"},
     {"simbolo_yahoo": "QQQ",          "simbolo": "QQQ",       "nombre": "Invesco QQQ Trust",     "mercado": "NYSE"},
-    {"simbolo_yahoo": "SPY",          "simbolo": "SPY",       "nombre": "SPDR S&P 500 ETF",      "mercado": "NYSE"},
+    {"simbolo_yahoo": "XLK",          "simbolo": "XLK",       "nombre": "Technology Select SPDR", "mercado": "NYSE"},
 ]
 
 # ---------------------------------------------------------------------------

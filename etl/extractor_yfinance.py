@@ -8,7 +8,6 @@ import time
 import re
 from datetime import datetime
 from typing import Optional, List, Dict
-from urllib.parse import urlencode
 
 from etl.interfaces import IExtractor, ILogger
 from etl.models import SerieHistorica, RegistroPrecio
@@ -21,9 +20,8 @@ class ExtractorYahooFinance(IExtractor):
     Implementa IExtractor (Principio DIP / OCP).
     
     Yahoo Finance es más accesible y confiable que Investing.com para scraping.
-    Usa el endpoint de descarga CSV que no requiere JavaScript.
-    
-    Usa cookies y crumb token para autenticación.
+    Esta implementación usa el endpoint JSON de `chart`,
+    evitando el flujo de crumb/cookies del endpoint CSV.
     
     Uso:
         logger    = ConsoleFileLogger()
@@ -31,9 +29,7 @@ class ExtractorYahooFinance(IExtractor):
         serie     = extractor.extraer("ECOPETL.BO", "ECOPETROL", "2019-01-01", "2024-12-31")
     """
     
-    URL_BASE = "https://query1.finance.yahoo.com/v7/finance/download/"
-    URL_CRUMB = "https://query2.finance.yahoo.com/v1/test/getcrumb"
-    URL_QUOTE = "https://finance.yahoo.com/quote/"
+    URL_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/"
     
     HEADERS = {
         "User-Agent": (
@@ -52,8 +48,6 @@ class ExtractorYahooFinance(IExtractor):
     def __init__(self, logger: ILogger):
         self._logger = logger
         self._session = requests.Session()
-        self._crumb = None
-        self._cookies_initialized = False
         
     def fuente(self) -> str:
         return "Yahoo Finance"
@@ -74,40 +68,19 @@ class ExtractorYahooFinance(IExtractor):
         """
         self._logger.info(f"Extrayendo {simbolo} ({simbolo_yahoo}) desde {self.fuente()}")
         
-        # Inicializar cookies y obtener crumb si es necesario
-        if not self._cookies_initialized:
-            if not self._inicializar_sesion():
-                self._logger.error(f"{simbolo}: no se pudo inicializar sesión con Yahoo Finance")
-                return None
-        
         # Convertir fechas a timestamps Unix
         period1 = self._fecha_a_timestamp(fecha_inicio)
         period2 = self._fecha_a_timestamp(fecha_fin)
-        
-        # Construir URL con crumb
-        params = {
-            "period1": period1,
-            "period2": period2,
-            "interval": "1d",
-            "events": "history",
-            "includeAdjustedClose": "true"
-        }
-        
-        # Agregar crumb si está disponible
-        if self._crumb:
-            params["crumb"] = self._crumb
-        
-        url = f"{self.URL_BASE}{simbolo_yahoo}?{urlencode(params)}"
-        
-        # Descargar datos con reintentos
-        csv_text = self._descargar_con_reintentos(url)
-        
-        if csv_text is None:
+
+        # Descargar datos con reintentos desde endpoint JSON
+        payload = self._descargar_chart_con_reintentos(simbolo_yahoo, period1, period2)
+
+        if payload is None:
             self._logger.error(f"{simbolo}: descarga fallida después de todos los reintentos")
             return None
-        
-        # Parsear CSV
-        registros = self._parsear_csv(csv_text, simbolo)
+
+        # Parsear JSON
+        registros = self._parsear_chart_json(payload, simbolo)
         
         if not registros:
             self._logger.advertencia(f"{simbolo}: CSV descargado pero sin registros válidos")
@@ -145,83 +118,47 @@ class ExtractorYahooFinance(IExtractor):
     # Métodos privados
     # ------------------------------------------------------------------
     
-    def _inicializar_sesion(self) -> bool:
-        """
-        Inicializa sesión con Yahoo Finance obteniendo cookies y crumb token.
-        El crumb es un token CSRF necesario para la autenticación.
-        """
-        try:
-            self._logger.info("Inicializando sesión con Yahoo Finance...")
-            
-            # Paso 1: Visitar página principal para obtener cookies
-            response = self._session.get(
-                self.URL_QUOTE + "SPY",  # Usar un símbolo conocido
-                headers=self.HEADERS,
-                timeout=TIMEOUT_REQUEST,
-                allow_redirects=True
-            )
-            
-            if response.status_code != 200:
-                self._logger.error(f"Error al obtener cookies: HTTP {response.status_code}")
-                return False
-            
-            time.sleep(0.5)
-            
-            # Paso 2: Intentar obtener crumb
-            try:
-                crumb_response = self._session.get(
-                    self.URL_CRUMB,
-                    headers=self.HEADERS,
-                    timeout=TIMEOUT_REQUEST
-                )
-                
-                if crumb_response.status_code == 200:
-                    self._crumb = crumb_response.text.strip()
-                    self._logger.info(f"Crumb obtenido exitosamente")
-                else:
-                    # El crumb puede no ser necesario para todos los símbolos
-                    self._logger.advertencia(
-                        f"No se pudo obtener crumb (HTTP {crumb_response.status_code}), "
-                        "continuando sin él..."
-                    )
-            except Exception as e:
-                self._logger.advertencia(f"Error al obtener crumb: {e}, continuando sin él...")
-            
-            self._cookies_initialized = True
-            self._logger.info("Sesión inicializada correctamente")
-            return True
-            
-        except requests.RequestException as e:
-            self._logger.error(f"Error al inicializar sesión: {e}")
-            return False
-    
     def _fecha_a_timestamp(self, fecha_iso: str) -> int:
         """Convierte fecha YYYY-MM-DD a timestamp Unix."""
         dt = datetime.strptime(fecha_iso, "%Y-%m-%d")
         return int(dt.timestamp())
-    
-    def _descargar_con_reintentos(self, url: str, 
-                                   reintentos: int = MAX_REINTENTOS) -> Optional[str]:
-        """Descarga contenido con estrategia de reintentos."""
+
+    def _descargar_chart_con_reintentos(
+        self,
+        simbolo_yahoo: str,
+        period1: int,
+        period2: int,
+        reintentos: int = MAX_REINTENTOS,
+    ) -> Optional[dict]:
+        """Descarga JSON de chart con estrategia de reintentos."""
         for intento in range(1, reintentos + 1):
             try:
-                time.sleep(0.5)  # Pausa cortés
-                
+                time.sleep(0.5)
+
+                params = {
+                    "period1": period1,
+                    "period2": period2,
+                    "interval": "1d",
+                    "events": "div,split",
+                    "includeAdjustedClose": "true",
+                }
+
                 response = self._session.get(
-                    url,
+                    f"{self.URL_CHART}{simbolo_yahoo}",
                     headers=self.HEADERS,
+                    params=params,
                     timeout=TIMEOUT_REQUEST,
                     allow_redirects=True
                 )
-                
+
                 if response.status_code == 200:
-                    return response.text
+                    return response.json()
                 elif response.status_code == 404:
                     self._logger.error(f"Símbolo no encontrado (404) en Yahoo Finance")
                     return None
                 else:
                     response.raise_for_status()
-                    
+
             except requests.exceptions.HTTPError as e:
                 self._logger.advertencia(
                     f"HTTP {response.status_code} en intento {intento}/{reintentos}: {e}"
@@ -230,95 +167,102 @@ class ExtractorYahooFinance(IExtractor):
                 self._logger.advertencia(f"Error de conexión en intento {intento}: {e}")
             except requests.exceptions.Timeout:
                 self._logger.advertencia(f"Timeout en intento {intento}/{reintentos}")
+            except ValueError as e:
+                self._logger.advertencia(f"JSON inválido en intento {intento}/{reintentos}: {e}")
             except requests.exceptions.RequestException as e:
                 self._logger.error(f"Error inesperado: {e}")
                 return None
-            
+
             if intento < reintentos:
                 espera = 2 ** intento
                 self._logger.info(f"Esperando {espera}s antes del siguiente intento...")
                 time.sleep(espera)
-        
+
         return None
-    
-    def _parsear_csv(self, csv_text: str, simbolo: str) -> List[Dict]:
-        """
-        Parsea el CSV de Yahoo Finance.
-        
-        Formato esperado:
-        Date,Open,High,Low,Close,Adj Close,Volume
-        2019-01-02,2450.0,2500.0,2440.0,2480.0,2480.0,1234567
-        """
-        registros = []
-        lineas = csv_text.strip().split('\n')
-        
-        if len(lineas) < 2:
+
+    def _parsear_chart_json(self, payload: dict, simbolo: str) -> List[Dict]:
+        """Parsea el JSON del endpoint chart de Yahoo Finance."""
+        chart = payload.get("chart", {}) if isinstance(payload, dict) else {}
+        resultados = chart.get("result") or []
+        errores = chart.get("error")
+
+        if errores:
+            descripcion = errores.get("description", "error desconocido") if isinstance(errores, dict) else str(errores)
+            self._logger.advertencia(f"Yahoo chart devolvió error para {simbolo}: {descripcion}")
             return []
-        
-        # Saltar header
-        for linea in lineas[1:]:
-            linea = linea.strip()
-            if not linea:
+
+        if not resultados:
+            return []
+
+        resultado = resultados[0]
+        timestamps = resultado.get("timestamp") or []
+        indicadores = resultado.get("indicators", {})
+        quotes = (indicadores.get("quote") or [{}])[0]
+        adjclose_arr = ((indicadores.get("adjclose") or [{}])[0]).get("adjclose") or []
+
+        opens = quotes.get("open") or []
+        highs = quotes.get("high") or []
+        lows = quotes.get("low") or []
+        closes = quotes.get("close") or []
+        volumes = quotes.get("volume") or []
+
+        n = len(timestamps)
+        registros: List[Dict] = []
+
+        for i in range(n):
+            ts = timestamps[i]
+            fecha = datetime.utcfromtimestamp(int(ts)).strftime("%Y-%m-%d")
+
+            open_val = self._valor_i(opens, i)
+            high_val = self._valor_i(highs, i)
+            low_val = self._valor_i(lows, i)
+            close_val = self._valor_i(closes, i)
+            adj_close_val = self._valor_i(adjclose_arr, i)
+            volume_val = self._valor_i(volumes, i)
+
+            if all(v is None for v in [open_val, high_val, low_val, close_val]):
                 continue
-            
-            partes = linea.split(',')
-            if len(partes) < 7:
-                continue
-            
-            try:
-                fecha = partes[0].strip()
-                
-                # Validar formato de fecha
-                if not self._validar_fecha(fecha):
-                    continue
-                
-                # Parsear valores numéricos (pueden ser 'null' o vacíos)
-                open_val = self._parsear_float(partes[1])
-                high_val = self._parsear_float(partes[2])
-                low_val = self._parsear_float(partes[3])
-                close_val = self._parsear_float(partes[4])
-                adj_close_val = self._parsear_float(partes[5])
-                volume_val = self._parsear_int(partes[6])
-                
-                # Si todos los precios son None, saltar registro
-                if all(v is None for v in [open_val, high_val, low_val, close_val]):
-                    continue
-                
-                registros.append({
-                    "ticker": simbolo,
-                    "fecha": fecha,
-                    "open": open_val,
-                    "high": high_val,
-                    "low": low_val,
-                    "close": close_val,
-                    "adj_close": adj_close_val,
-                    "volume": volume_val,
-                })
-                
-            except (ValueError, IndexError) as e:
-                self._logger.advertencia(f"Error parseando línea '{linea}': {e}")
-                continue
-        
+
+            registros.append({
+                "ticker": simbolo,
+                "fecha": fecha,
+                "open": self._parsear_float(open_val),
+                "high": self._parsear_float(high_val),
+                "low": self._parsear_float(low_val),
+                "close": self._parsear_float(close_val),
+                "adj_close": self._parsear_float(adj_close_val),
+                "volume": self._parsear_int(volume_val),
+            })
+
         return registros
+
+    def _valor_i(self, arr: list, i: int):
+        if i < len(arr):
+            return arr[i]
+        return None
     
     def _validar_fecha(self, fecha: str) -> bool:
         """Valida que la fecha tenga formato YYYY-MM-DD."""
         patron = r"^\d{4}-\d{2}-\d{2}$"
         return bool(re.match(patron, fecha))
     
-    def _parsear_float(self, texto: str) -> Optional[float]:
-        """Convierte string a float, retorna None si no es válido."""
-        texto = texto.strip().lower()
+    def _parsear_float(self, valor) -> Optional[float]:
+        """Convierte valor a float, retorna None si no es válido."""
+        if valor is None:
+            return None
+        texto = str(valor).strip().lower()
         if texto in ('', 'null', 'nan', '-'):
             return None
         try:
             return float(texto)
         except ValueError:
             return None
-    
-    def _parsear_int(self, texto: str) -> Optional[int]:
-        """Convierte string a int, retorna None si no es válido."""
-        texto = texto.strip().lower()
+
+    def _parsear_int(self, valor) -> Optional[int]:
+        """Convierte valor a int, retorna None si no es válido."""
+        if valor is None:
+            return None
+        texto = str(valor).strip().lower()
         if texto in ('', 'null', 'nan', '-'):
             return None
         try:

@@ -8,10 +8,101 @@ Sorter = Callable[[List[int]], List[int]]
 
 
 # -----------------------------------------------------------------------------
-# 1) TimSort (Python built-in sorted)
+# 1) TimSort (implementación manual simplificada)
 # -----------------------------------------------------------------------------
 def timsort(arr: List[int]) -> List[int]:
-    return sorted(arr)
+    a = arr[:]
+    n = len(a)
+    if n < 2:
+        return a
+
+    min_run = _calc_min_run(n)
+
+    # 1) Ordenar pequeños runs con binary insertion sort local
+    start = 0
+    while start < n:
+        end = start + min_run
+        if end > n:
+            end = n
+        _binary_insertion_sort_range(a, start, end)
+        start = end
+
+    # 2) Mezclar runs duplicando tamaño
+    size = min_run
+    while size < n:
+        left = 0
+        while left < n:
+            mid = left + size
+            right = left + (2 * size)
+            if mid > n:
+                mid = n
+            if right > n:
+                right = n
+
+            if mid < right:
+                _merge_runs(a, left, mid, right)
+
+            left = right
+        size *= 2
+
+    return a
+
+
+def _calc_min_run(n: int) -> int:
+    r = 0
+    while n >= 64:
+        r |= n & 1
+        n >>= 1
+    return n + r
+
+
+def _binary_insertion_sort_range(a: List[int], lo: int, hi: int) -> None:
+    i = lo + 1
+    while i < hi:
+        x = a[i]
+        left = lo
+        right = i
+        while left < right:
+            mid = (left + right) // 2
+            if a[mid] <= x:
+                left = mid + 1
+            else:
+                right = mid
+
+        j = i
+        while j > left:
+            a[j] = a[j - 1]
+            j -= 1
+        a[left] = x
+        i += 1
+
+
+def _merge_runs(a: List[int], lo: int, mid: int, hi: int) -> None:
+    left = a[lo:mid]
+    right = a[mid:hi]
+
+    i = 0
+    j = 0
+    k = lo
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            a[k] = left[i]
+            i += 1
+        else:
+            a[k] = right[j]
+            j += 1
+        k += 1
+
+    while i < len(left):
+        a[k] = left[i]
+        i += 1
+        k += 1
+
+    while j < len(right):
+        a[k] = right[j]
+        j += 1
+        k += 1
 
 
 # -----------------------------------------------------------------------------
@@ -104,7 +195,10 @@ def pigeonhole_sort(arr: List[int]) -> List[int]:
     if not arr:
         return []
 
-    unique_sorted = sorted(set(arr))
+    unique_map = {}
+    for x in arr:
+        unique_map[x] = True
+    unique_sorted = quicksort(list(unique_map.keys()))
     rank = {v: i for i, v in enumerate(unique_sorted)}
     holes = [0] * len(unique_sorted)
 
@@ -141,7 +235,7 @@ def bucket_sort(arr: List[int]) -> List[int]:
     out: List[int] = []
     for b in buckets:
         if b:
-            out.extend(sorted(b))
+            out.extend(binary_insertion_sort(b))
     return out
 
 

@@ -13,7 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from config import RUTA_MASTER
-from seguimiento1.ordenamientos import METODOS_ORDENAMIENTO
+from seguimiento1.ordenamientos import METODOS_ORDENAMIENTO, heap_sort
 
 
 SALIDA_DIR = Path("reportes/seguimiento1")
@@ -50,10 +50,53 @@ def to_int(valor: str | None) -> int | None:
         return None
 
 
+def merge_sort_manual(items: List, key, reverse: bool = False) -> List:
+    if len(items) <= 1:
+        return items[:]
+
+    mitad = len(items) // 2
+    izquierda = merge_sort_manual(items[:mitad], key=key, reverse=reverse)
+    derecha = merge_sort_manual(items[mitad:], key=key, reverse=reverse)
+
+    resultado = []
+    i = 0
+    j = 0
+
+    while i < len(izquierda) and j < len(derecha):
+        ki = key(izquierda[i])
+        kj = key(derecha[j])
+
+        if not reverse:
+            cond = ki <= kj
+        else:
+            cond = ki >= kj
+
+        if cond:
+            resultado.append(izquierda[i])
+            i += 1
+        else:
+            resultado.append(derecha[j])
+            j += 1
+
+    while i < len(izquierda):
+        resultado.append(izquierda[i])
+        i += 1
+
+    while j < len(derecha):
+        resultado.append(derecha[j])
+        j += 1
+
+    return resultado
+
+
 def ordenar_master_fecha_close(rows: List[Dict[str, str]]) -> List[Dict[str, str]]:
     # Fecha en formato YYYY-MM-DD (orden lexicográfico correcto),
     # desempate por close ascendente.
-    return sorted(rows, key=lambda r: (r.get("fecha", ""), to_float(r.get("close"))))
+    return merge_sort_manual(
+        rows,
+        key=lambda r: (r.get("fecha", ""), to_float(r.get("close"))),
+        reverse=False,
+    )
 
 
 def guardar_csv(path: Path, rows: List[Dict[str, str]], fieldnames: List[str]) -> None:
@@ -73,7 +116,7 @@ def benchmark_ordenamientos_enteros(enteros: List[int], semilla: int = 42) -> Li
         raise ValueError("No hay suficientes enteros para benchmarking.")
 
     muestra = random.sample(enteros, n) if len(enteros) > n else enteros[:]
-    esperado = sorted(muestra)
+    esperado = heap_sort(muestra)
 
     resultados: List[Dict[str, str]] = []
 
@@ -95,8 +138,7 @@ def benchmark_ordenamientos_enteros(enteros: List[int], semilla: int = 42) -> Li
             }
         )
 
-    resultados.sort(key=lambda r: float(r["tiempo_segundos"]))
-    return resultados
+    return merge_sort_manual(resultados, key=lambda r: float(r["tiempo_segundos"]))
 
 
 def generar_grafico_tiempos(tabla: List[Dict[str, str]], salida: Path) -> bool:
@@ -132,8 +174,8 @@ def top15_mayor_volumen_asc(rows: List[Dict[str, str]]) -> List[Dict[str, str]]:
             con_volumen.append((v, r))
 
     # Tomar 15 mayores por volumen y luego ordenar ascendente por volumen
-    top = sorted(con_volumen, key=lambda x: x[0], reverse=True)[:15]
-    top_asc = sorted(top, key=lambda x: x[0])
+    top = merge_sort_manual(con_volumen, key=lambda x: x[0], reverse=True)[:15]
+    top_asc = merge_sort_manual(top, key=lambda x: x[0], reverse=False)
     return [r for _, r in top_asc]
 
 

@@ -1,0 +1,13 @@
+metodo,tamano,tiempo_segundos,complejidad
+QuickSort,2000,0.001667,O(n log n) promedio
+Comb Sort,2000,0.002771,O(n^2)
+Pigeonhole Sort,2000,0.003216,O(n + k)
+TimSort,2000,0.003456,O(n log n)
+Tree Sort,2000,0.003647,O(n log n) promedio
+RadixSort,2000,0.003738,O(d*(n+b))
+HeapSort,2000,0.003758,O(n log n)
+Bucket Sort,2000,0.012144,O(n + k)
+Bitonic Sort,2000,0.013585,O(n log^2 n)
+Selection Sort,2000,0.052447,O(n^2)
+Binary Insertion Sort,2000,0.066127,O(n^2)
+Gnome Sort,2000,0.303482,O(n^2)

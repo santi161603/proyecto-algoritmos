@@ -713,3 +713,1031 @@ Anomalías marcadas : 223
 Tasa de éxito      : 100.0%
 Errores            : 0
 [2026-03-29 17:57:41] ✅ [INFO] ============================================================
+[2026-05-12 11:27:45] ✅ [INFO] ============================================================
+[2026-05-12 11:27:45] ✅ [INFO] INICIO PIPELINE ETL
+[2026-05-12 11:27:45] ✅ [INFO] Activos     : 20
+[2026-05-12 11:27:45] ✅ [INFO] Periodo     : 2019-01-01 → 2026-05-12
+[2026-05-12 11:27:45] ✅ [INFO] Fuente      : Yahoo Finance + Google Finance
+[2026-05-12 11:27:45] ✅ [INFO] ============================================================
+[2026-05-12 11:27:45] ✅ [INFO] 
+[1/20] EC — Ecopetrol ADR
+[2026-05-12 11:27:45] ✅ [INFO] Extrayendo EC (EC) desde Yahoo Finance
+[2026-05-12 11:28:29] ✅ [INFO] EC: 1849 registros extraídos
+[2026-05-12 11:28:29] ✅ [INFO] Extrayendo EC (EC:NYSE) desde Google Finance
+[2026-05-12 11:28:32] ✅ [INFO] EC: 1 registros extraídos en Google
+[2026-05-12 11:28:32] ✅ [INFO] EC: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:28:32] ✅ [INFO] Transformando EC (1850 registros)
+[2026-05-12 11:28:32] ⚠️  [WARN] EC: 1833 inconsistencias detectadas, 1833 corregidas
+[2026-05-12 11:28:32] ⚠️  [WARN] EC: 33 registros marcados como anomalía
+[2026-05-12 11:28:32] ✅ [INFO] EC: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:28:32] ✅ [INFO] Serie guardada: data/clean\EC.csv (1850 registros)
+[2026-05-12 11:28:35] ✅ [INFO] 
+[2/20] CIB — Bancolombia ADR
+[2026-05-12 11:28:35] ✅ [INFO] Extrayendo CIB (CIB) desde Yahoo Finance
+[2026-05-12 11:28:36] ✅ [INFO] CIB: 1849 registros extraídos
+[2026-05-12 11:28:36] ✅ [INFO] Extrayendo CIB (CIB:NYSE) desde Google Finance
+[2026-05-12 11:28:37] ⚠️  [WARN] CIB: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:28:37] ⚠️  [WARN] CIB: Google falló, se usa solo Yahoo
+[2026-05-12 11:28:37] ✅ [INFO] Transformando CIB (1849 registros)
+[2026-05-12 11:28:37] ⚠️  [WARN] CIB: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:28:37] ⚠️  [WARN] CIB: 24 registros marcados como anomalía
+[2026-05-12 11:28:37] ✅ [INFO] CIB: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:28:37] ✅ [INFO] Serie guardada: data/clean\CIB.csv (1849 registros)
+[2026-05-12 11:28:40] ✅ [INFO] 
+[3/20] AVAL — Grupo Aval ADR
+[2026-05-12 11:28:40] ✅ [INFO] Extrayendo AVAL (AVAL) desde Yahoo Finance
+[2026-05-12 11:28:41] ✅ [INFO] AVAL: 1849 registros extraídos
+[2026-05-12 11:28:41] ✅ [INFO] Extrayendo AVAL (AVAL:NYSE) desde Google Finance
+[2026-05-12 11:28:42] ⚠️  [WARN] AVAL: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:28:42] ⚠️  [WARN] AVAL: Google falló, se usa solo Yahoo
+[2026-05-12 11:28:42] ✅ [INFO] Transformando AVAL (1849 registros)
+[2026-05-12 11:28:42] ⚠️  [WARN] AVAL: 1678 inconsistencias detectadas, 1678 corregidas
+[2026-05-12 11:28:42] ⚠️  [WARN] AVAL: 24 registros marcados como anomalía
+[2026-05-12 11:28:42] ✅ [INFO] AVAL: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:28:42] ✅ [INFO] Serie guardada: data/clean\AVAL.csv (1849 registros)
+[2026-05-12 11:28:45] ✅ [INFO] 
+[4/20] BAP — Credicorp
+[2026-05-12 11:28:45] ✅ [INFO] Extrayendo BAP (BAP) desde Yahoo Finance
+[2026-05-12 11:28:46] ✅ [INFO] BAP: 1849 registros extraídos
+[2026-05-12 11:28:46] ✅ [INFO] Extrayendo BAP (BAP:NYSE) desde Google Finance
+[2026-05-12 11:28:47] ✅ [INFO] BAP: 1 registros extraídos en Google
+[2026-05-12 11:28:47] ✅ [INFO] BAP: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:28:47] ✅ [INFO] Transformando BAP (1850 registros)
+[2026-05-12 11:28:47] ⚠️  [WARN] BAP: 1599 inconsistencias detectadas, 1599 corregidas
+[2026-05-12 11:28:47] ⚠️  [WARN] BAP: 40 registros marcados como anomalía
+[2026-05-12 11:28:47] ✅ [INFO] BAP: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:28:47] ✅ [INFO] Serie guardada: data/clean\BAP.csv (1850 registros)
+[2026-05-12 11:28:50] ✅ [INFO] 
+[5/20] ITUB — Itaú Unibanco
+[2026-05-12 11:28:50] ✅ [INFO] Extrayendo ITUB (ITUB) desde Yahoo Finance
+[2026-05-12 11:28:51] ✅ [INFO] ITUB: 1849 registros extraídos
+[2026-05-12 11:28:51] ✅ [INFO] Extrayendo ITUB (ITUB:NYSE) desde Google Finance
+[2026-05-12 11:28:52] ✅ [INFO] ITUB: 1 registros extraídos en Google
+[2026-05-12 11:28:52] ✅ [INFO] ITUB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:28:52] ✅ [INFO] Transformando ITUB (1850 registros)
+[2026-05-12 11:28:52] ⚠️  [WARN] ITUB: 1784 inconsistencias detectadas, 1784 corregidas
+[2026-05-12 11:28:52] ⚠️  [WARN] ITUB: 19 registros marcados como anomalía
+[2026-05-12 11:28:52] ✅ [INFO] ITUB: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:28:52] ✅ [INFO] Serie guardada: data/clean\ITUB.csv (1850 registros)
+[2026-05-12 11:28:55] ✅ [INFO] 
+[6/20] PBR — Petrobras
+[2026-05-12 11:28:55] ✅ [INFO] Extrayendo PBR (PBR) desde Yahoo Finance
+[2026-05-12 11:28:56] ✅ [INFO] PBR: 1849 registros extraídos
+[2026-05-12 11:28:56] ✅ [INFO] Extrayendo PBR (PBR:NYSE) desde Google Finance
+[2026-05-12 11:28:57] ✅ [INFO] PBR: 1 registros extraídos en Google
+[2026-05-12 11:28:57] ✅ [INFO] PBR: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:28:57] ✅ [INFO] Transformando PBR (1850 registros)
+[2026-05-12 11:28:57] ⚠️  [WARN] PBR: 1713 inconsistencias detectadas, 1713 corregidas
+[2026-05-12 11:28:57] ⚠️  [WARN] PBR: 30 registros marcados como anomalía
+[2026-05-12 11:28:57] ✅ [INFO] PBR: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:28:57] ✅ [INFO] Serie guardada: data/clean\PBR.csv (1850 registros)
+[2026-05-12 11:29:00] ✅ [INFO] 
+[7/20] VALE — Vale S.A.
+[2026-05-12 11:29:00] ✅ [INFO] Extrayendo VALE (VALE) desde Yahoo Finance
+[2026-05-12 11:29:01] ✅ [INFO] VALE: 1849 registros extraídos
+[2026-05-12 11:29:01] ✅ [INFO] Extrayendo VALE (VALE:NYSE) desde Google Finance
+[2026-05-12 11:29:01] ✅ [INFO] VALE: 1 registros extraídos en Google
+[2026-05-12 11:29:01] ✅ [INFO] VALE: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:29:01] ✅ [INFO] Transformando VALE (1850 registros)
+[2026-05-12 11:29:02] ⚠️  [WARN] VALE: 1746 inconsistencias detectadas, 1746 corregidas
+[2026-05-12 11:29:02] ⚠️  [WARN] VALE: 18 registros marcados como anomalía
+[2026-05-12 11:29:02] ✅ [INFO] VALE: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:29:02] ✅ [INFO] Serie guardada: data/clean\VALE.csv (1850 registros)
+[2026-05-12 11:29:05] ✅ [INFO] 
+[8/20] NU — Nu Holdings
+[2026-05-12 11:29:05] ✅ [INFO] Extrayendo NU (NU) desde Yahoo Finance
+[2026-05-12 11:29:05] ✅ [INFO] NU: 1108 registros extraídos
+[2026-05-12 11:29:05] ✅ [INFO] Extrayendo NU (NU:NYSE) desde Google Finance
+[2026-05-12 11:29:06] ✅ [INFO] NU: 1 registros extraídos en Google
+[2026-05-12 11:29:06] ✅ [INFO] NU: fusión completada (Yahoo=1108, Google=1, Final=1109)
+[2026-05-12 11:29:06] ✅ [INFO] Transformando NU (1109 registros)
+[2026-05-12 11:29:06] ⚠️  [WARN] NU: 29 registros marcados como anomalía
+[2026-05-12 11:29:06] ✅ [INFO] NU: limpieza completada | entrada=1109, salida=1109, eliminados=0
+[2026-05-12 11:29:06] ✅ [INFO] Serie guardada: data/clean\NU.csv (1109 registros)
+[2026-05-12 11:29:09] ✅ [INFO] 
+[9/20] GGAL — Grupo Financiero Galicia
+[2026-05-12 11:29:09] ✅ [INFO] Extrayendo GGAL (GGAL) desde Yahoo Finance
+[2026-05-12 11:29:10] ✅ [INFO] GGAL: 1849 registros extraídos
+[2026-05-12 11:29:10] ✅ [INFO] Extrayendo GGAL (GGAL:NASDAQ) desde Google Finance
+[2026-05-12 11:29:11] ✅ [INFO] GGAL: 1 registros extraídos en Google
+[2026-05-12 11:29:11] ✅ [INFO] GGAL: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:29:11] ✅ [INFO] Transformando GGAL (1850 registros)
+[2026-05-12 11:29:11] ⚠️  [WARN] GGAL: 1769 inconsistencias detectadas, 1769 corregidas
+[2026-05-12 11:29:11] ⚠️  [WARN] GGAL: 18 registros marcados como anomalía
+[2026-05-12 11:29:11] ✅ [INFO] GGAL: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:29:11] ✅ [INFO] Serie guardada: data/clean\GGAL.csv (1850 registros)
+[2026-05-12 11:29:14] ✅ [INFO] 
+[10/20] SPY — SPDR S&P 500 ETF
+[2026-05-12 11:29:14] ✅ [INFO] Extrayendo SPY (SPY) desde Yahoo Finance
+[2026-05-12 11:29:15] ✅ [INFO] SPY: 1849 registros extraídos
+[2026-05-12 11:29:15] ✅ [INFO] Extrayendo SPY (SPY:NYSE) desde Google Finance
+[2026-05-12 11:29:15] ⚠️  [WARN] SPY: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:15] ⚠️  [WARN] SPY: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:15] ✅ [INFO] Transformando SPY (1849 registros)
+[2026-05-12 11:29:16] ⚠️  [WARN] SPY: 1717 inconsistencias detectadas, 1717 corregidas
+[2026-05-12 11:29:16] ⚠️  [WARN] SPY: 34 registros marcados como anomalía
+[2026-05-12 11:29:16] ✅ [INFO] SPY: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:16] ✅ [INFO] Serie guardada: data/clean\SPY.csv (1849 registros)
+[2026-05-12 11:29:19] ✅ [INFO] 
+[11/20] VOO — Vanguard S&P 500 ETF
+[2026-05-12 11:29:19] ✅ [INFO] Extrayendo VOO (VOO) desde Yahoo Finance
+[2026-05-12 11:29:20] ✅ [INFO] VOO: 1849 registros extraídos
+[2026-05-12 11:29:20] ✅ [INFO] Extrayendo VOO (VOO:NYSE) desde Google Finance
+[2026-05-12 11:29:20] ⚠️  [WARN] VOO: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:20] ⚠️  [WARN] VOO: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:20] ✅ [INFO] Transformando VOO (1849 registros)
+[2026-05-12 11:29:21] ⚠️  [WARN] VOO: 1739 inconsistencias detectadas, 1739 corregidas
+[2026-05-12 11:29:21] ⚠️  [WARN] VOO: 34 registros marcados como anomalía
+[2026-05-12 11:29:21] ✅ [INFO] VOO: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:21] ✅ [INFO] Serie guardada: data/clean\VOO.csv (1849 registros)
+[2026-05-12 11:29:24] ✅ [INFO] 
+[12/20] CSPX — iShares Core S&P 500
+[2026-05-12 11:29:24] ✅ [INFO] Extrayendo CSPX (CSPX.L) desde Yahoo Finance
+[2026-05-12 11:29:24] ✅ [INFO] CSPX: 1855 registros extraídos
+[2026-05-12 11:29:24] ✅ [INFO] Extrayendo CSPX (CSPX:LON) desde Google Finance
+[2026-05-12 11:29:25] ✅ [INFO] CSPX: 1 registros extraídos en Google
+[2026-05-12 11:29:25] ✅ [INFO] CSPX: fusión completada (Yahoo=1855, Google=1, Final=1856)
+[2026-05-12 11:29:25] ✅ [INFO] Transformando CSPX (1856 registros)
+[2026-05-12 11:29:25] ⚠️  [WARN] CSPX: 3 inconsistencias detectadas, 3 corregidas
+[2026-05-12 11:29:25] ⚠️  [WARN] CSPX: 42 registros marcados como anomalía
+[2026-05-12 11:29:25] ✅ [INFO] CSPX: limpieza completada | entrada=1856, salida=1856, eliminados=0
+[2026-05-12 11:29:25] ✅ [INFO] Serie guardada: data/clean\CSPX.csv (1856 registros)
+[2026-05-12 11:29:28] ✅ [INFO] 
+[13/20] GXG — Global X Colombia ETF
+[2026-05-12 11:29:28] ✅ [INFO] Extrayendo GXG (GXG) desde Yahoo Finance
+[2026-05-12 11:29:29] ✅ [INFO] GXG: 1848 registros extraídos
+[2026-05-12 11:29:29] ✅ [INFO] Extrayendo GXG (GXG:NYSE) desde Google Finance
+[2026-05-12 11:29:30] ⚠️  [WARN] GXG: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:30] ⚠️  [WARN] GXG: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:30] ✅ [INFO] Transformando GXG (1848 registros)
+[2026-05-12 11:29:30] ⚠️  [WARN] GXG: 1757 inconsistencias detectadas, 1757 corregidas
+[2026-05-12 11:29:30] ⚠️  [WARN] GXG: 30 registros marcados como anomalía
+[2026-05-12 11:29:30] ✅ [INFO] GXG: limpieza completada | entrada=1848, salida=1848, eliminados=0
+[2026-05-12 11:29:30] ✅ [INFO] Serie guardada: data/clean\GXG.csv (1848 registros)
+[2026-05-12 11:29:33] ✅ [INFO] 
+[14/20] ILF — iShares Latin America
+[2026-05-12 11:29:33] ✅ [INFO] Extrayendo ILF (ILF) desde Yahoo Finance
+[2026-05-12 11:29:34] ✅ [INFO] ILF: 1849 registros extraídos
+[2026-05-12 11:29:34] ✅ [INFO] Extrayendo ILF (ILF:NYSE) desde Google Finance
+[2026-05-12 11:29:34] ⚠️  [WARN] ILF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:34] ⚠️  [WARN] ILF: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:34] ✅ [INFO] Transformando ILF (1849 registros)
+[2026-05-12 11:29:35] ⚠️  [WARN] ILF: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:29:35] ⚠️  [WARN] ILF: 23 registros marcados como anomalía
+[2026-05-12 11:29:35] ✅ [INFO] ILF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:35] ✅ [INFO] Serie guardada: data/clean\ILF.csv (1849 registros)
+[2026-05-12 11:29:38] ✅ [INFO] 
+[15/20] EWW — iShares MSCI Mexico
+[2026-05-12 11:29:38] ✅ [INFO] Extrayendo EWW (EWW) desde Yahoo Finance
+[2026-05-12 11:29:38] ✅ [INFO] EWW: 1849 registros extraídos
+[2026-05-12 11:29:38] ✅ [INFO] Extrayendo EWW (EWW:NYSE) desde Google Finance
+[2026-05-12 11:29:39] ⚠️  [WARN] EWW: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:39] ⚠️  [WARN] EWW: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:39] ✅ [INFO] Transformando EWW (1849 registros)
+[2026-05-12 11:29:39] ⚠️  [WARN] EWW: 1733 inconsistencias detectadas, 1733 corregidas
+[2026-05-12 11:29:39] ⚠️  [WARN] EWW: 20 registros marcados como anomalía
+[2026-05-12 11:29:39] ✅ [INFO] EWW: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:39] ✅ [INFO] Serie guardada: data/clean\EWW.csv (1849 registros)
+[2026-05-12 11:29:42] ✅ [INFO] 
+[16/20] XLF — Financial Select SPDR
+[2026-05-12 11:29:42] ✅ [INFO] Extrayendo XLF (XLF) desde Yahoo Finance
+[2026-05-12 11:29:44] ✅ [INFO] XLF: 1849 registros extraídos
+[2026-05-12 11:29:44] ✅ [INFO] Extrayendo XLF (XLF:NYSE) desde Google Finance
+[2026-05-12 11:29:44] ⚠️  [WARN] XLF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:44] ⚠️  [WARN] XLF: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:44] ✅ [INFO] Transformando XLF (1849 registros)
+[2026-05-12 11:29:44] ⚠️  [WARN] XLF: 1751 inconsistencias detectadas, 1751 corregidas
+[2026-05-12 11:29:44] ⚠️  [WARN] XLF: 34 registros marcados como anomalía
+[2026-05-12 11:29:44] ✅ [INFO] XLF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:44] ✅ [INFO] Serie guardada: data/clean\XLF.csv (1849 registros)
+[2026-05-12 11:29:47] ✅ [INFO] 
+[17/20] XLE — Energy Select SPDR
+[2026-05-12 11:29:47] ✅ [INFO] Extrayendo XLE (XLE) desde Yahoo Finance
+[2026-05-12 11:29:48] ✅ [INFO] XLE: 1849 registros extraídos
+[2026-05-12 11:29:48] ✅ [INFO] Extrayendo XLE (XLE:NYSE) desde Google Finance
+[2026-05-12 11:29:49] ⚠️  [WARN] XLE: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:49] ⚠️  [WARN] XLE: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:49] ✅ [INFO] Transformando XLE (1849 registros)
+[2026-05-12 11:29:49] ⚠️  [WARN] XLE: 1764 inconsistencias detectadas, 1764 corregidas
+[2026-05-12 11:29:49] ⚠️  [WARN] XLE: 30 registros marcados como anomalía
+[2026-05-12 11:29:49] ✅ [INFO] XLE: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:49] ✅ [INFO] Serie guardada: data/clean\XLE.csv (1849 registros)
+[2026-05-12 11:29:52] ✅ [INFO] 
+[18/20] EEM — iShares MSCI EM
+[2026-05-12 11:29:52] ✅ [INFO] Extrayendo EEM (EEM) desde Yahoo Finance
+[2026-05-12 11:29:53] ✅ [INFO] EEM: 1849 registros extraídos
+[2026-05-12 11:29:53] ✅ [INFO] Extrayendo EEM (EEM:NYSE) desde Google Finance
+[2026-05-12 11:29:54] ⚠️  [WARN] EEM: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:54] ⚠️  [WARN] EEM: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:54] ✅ [INFO] Transformando EEM (1849 registros)
+[2026-05-12 11:29:54] ⚠️  [WARN] EEM: 1747 inconsistencias detectadas, 1747 corregidas
+[2026-05-12 11:29:54] ⚠️  [WARN] EEM: 20 registros marcados como anomalía
+[2026-05-12 11:29:54] ✅ [INFO] EEM: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:54] ✅ [INFO] Serie guardada: data/clean\EEM.csv (1849 registros)
+[2026-05-12 11:29:57] ✅ [INFO] 
+[19/20] QQQ — Invesco QQQ Trust
+[2026-05-12 11:29:57] ✅ [INFO] Extrayendo QQQ (QQQ) desde Yahoo Finance
+[2026-05-12 11:29:58] ✅ [INFO] QQQ: 1849 registros extraídos
+[2026-05-12 11:29:58] ✅ [INFO] Extrayendo QQQ (QQQ:NYSE) desde Google Finance
+[2026-05-12 11:29:58] ⚠️  [WARN] QQQ: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:29:58] ⚠️  [WARN] QQQ: Google falló, se usa solo Yahoo
+[2026-05-12 11:29:58] ✅ [INFO] Transformando QQQ (1849 registros)
+[2026-05-12 11:29:58] ⚠️  [WARN] QQQ: 1459 inconsistencias detectadas, 1459 corregidas
+[2026-05-12 11:29:58] ⚠️  [WARN] QQQ: 26 registros marcados como anomalía
+[2026-05-12 11:29:58] ✅ [INFO] QQQ: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:29:58] ✅ [INFO] Serie guardada: data/clean\QQQ.csv (1849 registros)
+[2026-05-12 11:30:01] ✅ [INFO] 
+[20/20] XLK — Technology Select SPDR
+[2026-05-12 11:30:01] ✅ [INFO] Extrayendo XLK (XLK) desde Yahoo Finance
+[2026-05-12 11:30:02] ✅ [INFO] XLK: 1849 registros extraídos
+[2026-05-12 11:30:02] ✅ [INFO] Extrayendo XLK (XLK:NYSE) desde Google Finance
+[2026-05-12 11:30:03] ⚠️  [WARN] XLK: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:30:03] ⚠️  [WARN] XLK: Google falló, se usa solo Yahoo
+[2026-05-12 11:30:03] ✅ [INFO] Transformando XLK (1849 registros)
+[2026-05-12 11:30:03] ⚠️  [WARN] XLK: 1483 inconsistencias detectadas, 1483 corregidas
+[2026-05-12 11:30:03] ⚠️  [WARN] XLK: 22 registros marcados como anomalía
+[2026-05-12 11:30:03] ✅ [INFO] XLK: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:30:03] ✅ [INFO] Serie guardada: data/clean\XLK.csv (1849 registros)
+[2026-05-12 11:30:06] ✅ [INFO] 
+Consolidando dataset maestro...
+[2026-05-12 11:30:07] ✅ [INFO] Dataset maestro generado: data/master_dataset.csv (36252 registros, 20 activos)
+[2026-05-12 11:30:07] ✅ [INFO] 
+============================================================
+[2026-05-12 11:30:07] ✅ [INFO] RESULTADO FINAL ETL
+[2026-05-12 11:30:07] ✅ [INFO] Activos procesados : 20/20
+Registros totales  : 36252
+Anomalías marcadas : 550
+Tasa de éxito      : 100.0%
+Errores            : 0
+[2026-05-12 11:30:07] ✅ [INFO] ============================================================
+[2026-05-12 11:33:36] ✅ [INFO] ============================================================
+[2026-05-12 11:33:36] ✅ [INFO] INICIO PIPELINE ETL
+[2026-05-12 11:33:36] ✅ [INFO] Activos     : 20
+[2026-05-12 11:33:36] ✅ [INFO] Periodo     : 2019-01-01 → 2026-05-12
+[2026-05-12 11:33:36] ✅ [INFO] Fuente      : Yahoo Finance + Google Finance
+[2026-05-12 11:33:36] ✅ [INFO] ============================================================
+[2026-05-12 11:33:36] ✅ [INFO] 
+[1/20] EC — Ecopetrol ADR
+[2026-05-12 11:33:36] ✅ [INFO] Extrayendo EC (EC) desde Yahoo Finance
+[2026-05-12 11:34:20] ✅ [INFO] EC: 1849 registros extraídos
+[2026-05-12 11:34:20] ✅ [INFO] Extrayendo EC (EC:NYSE) desde Google Finance
+[2026-05-12 11:34:22] ✅ [INFO] EC: 1 registros extraídos en Google
+[2026-05-12 11:34:22] ✅ [INFO] EC: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:22] ✅ [INFO] Transformando EC (1850 registros)
+[2026-05-12 11:34:22] ⚠️  [WARN] EC: 1833 inconsistencias detectadas, 1833 corregidas
+[2026-05-12 11:34:22] ⚠️  [WARN] EC: 33 anomalías corregidas
+[2026-05-12 11:34:22] ✅ [INFO] EC: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:22] ✅ [INFO] Serie guardada: data/clean\EC.csv (1850 registros)
+[2026-05-12 11:34:25] ✅ [INFO] 
+[2/20] CIB — Bancolombia ADR
+[2026-05-12 11:34:25] ✅ [INFO] Extrayendo CIB (CIB) desde Yahoo Finance
+[2026-05-12 11:34:26] ✅ [INFO] CIB: 1849 registros extraídos
+[2026-05-12 11:34:26] ✅ [INFO] Extrayendo CIB (CIB:NYSE) desde Google Finance
+[2026-05-12 11:34:27] ✅ [INFO] CIB: 1 registros extraídos en Google
+[2026-05-12 11:34:27] ✅ [INFO] CIB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:27] ✅ [INFO] Transformando CIB (1850 registros)
+[2026-05-12 11:34:27] ⚠️  [WARN] CIB: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:34:27] ⚠️  [WARN] CIB: 24 anomalías corregidas
+[2026-05-12 11:34:27] ✅ [INFO] CIB: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:27] ✅ [INFO] Serie guardada: data/clean\CIB.csv (1850 registros)
+[2026-05-12 11:34:30] ✅ [INFO] 
+[3/20] AVAL — Grupo Aval ADR
+[2026-05-12 11:34:30] ✅ [INFO] Extrayendo AVAL (AVAL) desde Yahoo Finance
+[2026-05-12 11:34:30] ✅ [INFO] AVAL: 1849 registros extraídos
+[2026-05-12 11:34:30] ✅ [INFO] Extrayendo AVAL (AVAL:NYSE) desde Google Finance
+[2026-05-12 11:34:31] ⚠️  [WARN] AVAL: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:34:31] ⚠️  [WARN] AVAL: Google falló, se usa solo Yahoo
+[2026-05-12 11:34:31] ✅ [INFO] Transformando AVAL (1849 registros)
+[2026-05-12 11:34:31] ⚠️  [WARN] AVAL: 1678 inconsistencias detectadas, 1678 corregidas
+[2026-05-12 11:34:31] ⚠️  [WARN] AVAL: 24 anomalías corregidas
+[2026-05-12 11:34:31] ✅ [INFO] AVAL: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:34:31] ✅ [INFO] Serie guardada: data/clean\AVAL.csv (1849 registros)
+[2026-05-12 11:34:34] ✅ [INFO] 
+[4/20] BAP — Credicorp
+[2026-05-12 11:34:34] ✅ [INFO] Extrayendo BAP (BAP) desde Yahoo Finance
+[2026-05-12 11:34:35] ✅ [INFO] BAP: 1849 registros extraídos
+[2026-05-12 11:34:35] ✅ [INFO] Extrayendo BAP (BAP:NYSE) desde Google Finance
+[2026-05-12 11:34:36] ✅ [INFO] BAP: 1 registros extraídos en Google
+[2026-05-12 11:34:36] ✅ [INFO] BAP: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:36] ✅ [INFO] Transformando BAP (1850 registros)
+[2026-05-12 11:34:36] ⚠️  [WARN] BAP: 1599 inconsistencias detectadas, 1599 corregidas
+[2026-05-12 11:34:36] ⚠️  [WARN] BAP: 40 anomalías corregidas
+[2026-05-12 11:34:36] ✅ [INFO] BAP: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:36] ✅ [INFO] Serie guardada: data/clean\BAP.csv (1850 registros)
+[2026-05-12 11:34:39] ✅ [INFO] 
+[5/20] ITUB — Itaú Unibanco
+[2026-05-12 11:34:39] ✅ [INFO] Extrayendo ITUB (ITUB) desde Yahoo Finance
+[2026-05-12 11:34:40] ✅ [INFO] ITUB: 1849 registros extraídos
+[2026-05-12 11:34:40] ✅ [INFO] Extrayendo ITUB (ITUB:NYSE) desde Google Finance
+[2026-05-12 11:34:41] ✅ [INFO] ITUB: 1 registros extraídos en Google
+[2026-05-12 11:34:41] ✅ [INFO] ITUB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:41] ✅ [INFO] Transformando ITUB (1850 registros)
+[2026-05-12 11:34:41] ⚠️  [WARN] ITUB: 1784 inconsistencias detectadas, 1784 corregidas
+[2026-05-12 11:34:41] ⚠️  [WARN] ITUB: 19 anomalías corregidas
+[2026-05-12 11:34:41] ✅ [INFO] ITUB: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:41] ✅ [INFO] Serie guardada: data/clean\ITUB.csv (1850 registros)
+[2026-05-12 11:34:44] ✅ [INFO] 
+[6/20] PBR — Petrobras
+[2026-05-12 11:34:44] ✅ [INFO] Extrayendo PBR (PBR) desde Yahoo Finance
+[2026-05-12 11:34:45] ✅ [INFO] PBR: 1849 registros extraídos
+[2026-05-12 11:34:45] ✅ [INFO] Extrayendo PBR (PBR:NYSE) desde Google Finance
+[2026-05-12 11:34:46] ✅ [INFO] PBR: 1 registros extraídos en Google
+[2026-05-12 11:34:46] ✅ [INFO] PBR: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:46] ✅ [INFO] Transformando PBR (1850 registros)
+[2026-05-12 11:34:46] ⚠️  [WARN] PBR: 1713 inconsistencias detectadas, 1713 corregidas
+[2026-05-12 11:34:46] ⚠️  [WARN] PBR: 30 anomalías corregidas
+[2026-05-12 11:34:46] ✅ [INFO] PBR: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:46] ✅ [INFO] Serie guardada: data/clean\PBR.csv (1850 registros)
+[2026-05-12 11:34:49] ✅ [INFO] 
+[7/20] VALE — Vale S.A.
+[2026-05-12 11:34:49] ✅ [INFO] Extrayendo VALE (VALE) desde Yahoo Finance
+[2026-05-12 11:34:50] ✅ [INFO] VALE: 1849 registros extraídos
+[2026-05-12 11:34:50] ✅ [INFO] Extrayendo VALE (VALE:NYSE) desde Google Finance
+[2026-05-12 11:34:50] ✅ [INFO] VALE: 1 registros extraídos en Google
+[2026-05-12 11:34:50] ✅ [INFO] VALE: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:34:50] ✅ [INFO] Transformando VALE (1850 registros)
+[2026-05-12 11:34:51] ⚠️  [WARN] VALE: 1746 inconsistencias detectadas, 1746 corregidas
+[2026-05-12 11:34:51] ⚠️  [WARN] VALE: 18 anomalías corregidas
+[2026-05-12 11:34:51] ✅ [INFO] VALE: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:34:51] ✅ [INFO] Serie guardada: data/clean\VALE.csv (1850 registros)
+[2026-05-12 11:34:54] ✅ [INFO] 
+[8/20] NU — Nu Holdings
+[2026-05-12 11:34:54] ✅ [INFO] Extrayendo NU (NU) desde Yahoo Finance
+[2026-05-12 11:34:54] ✅ [INFO] NU: 1108 registros extraídos
+[2026-05-12 11:34:54] ✅ [INFO] Extrayendo NU (NU:NYSE) desde Google Finance
+[2026-05-12 11:34:55] ✅ [INFO] NU: 1 registros extraídos en Google
+[2026-05-12 11:34:55] ✅ [INFO] NU: fusión completada (Yahoo=1108, Google=1, Final=1109)
+[2026-05-12 11:34:55] ✅ [INFO] Transformando NU (1109 registros)
+[2026-05-12 11:34:55] ⚠️  [WARN] NU: 29 anomalías corregidas
+[2026-05-12 11:34:55] ✅ [INFO] NU: limpieza completada | entrada=1109, salida=1109, eliminados=0
+[2026-05-12 11:34:55] ✅ [INFO] Serie guardada: data/clean\NU.csv (1109 registros)
+[2026-05-12 11:34:58] ✅ [INFO] 
+[9/20] GGAL — Grupo Financiero Galicia
+[2026-05-12 11:34:58] ✅ [INFO] Extrayendo GGAL (GGAL) desde Yahoo Finance
+[2026-05-12 11:34:59] ✅ [INFO] GGAL: 1849 registros extraídos
+[2026-05-12 11:34:59] ✅ [INFO] Extrayendo GGAL (GGAL:NASDAQ) desde Google Finance
+[2026-05-12 11:35:00] ✅ [INFO] GGAL: 1 registros extraídos en Google
+[2026-05-12 11:35:00] ✅ [INFO] GGAL: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:35:00] ✅ [INFO] Transformando GGAL (1850 registros)
+[2026-05-12 11:35:00] ⚠️  [WARN] GGAL: 1769 inconsistencias detectadas, 1769 corregidas
+[2026-05-12 11:35:00] ⚠️  [WARN] GGAL: 18 anomalías corregidas
+[2026-05-12 11:35:00] ✅ [INFO] GGAL: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 11:35:00] ✅ [INFO] Serie guardada: data/clean\GGAL.csv (1850 registros)
+[2026-05-12 11:35:03] ✅ [INFO] 
+[10/20] SPY — SPDR S&P 500 ETF
+[2026-05-12 11:35:03] ✅ [INFO] Extrayendo SPY (SPY) desde Yahoo Finance
+[2026-05-12 11:35:04] ✅ [INFO] SPY: 1849 registros extraídos
+[2026-05-12 11:35:04] ✅ [INFO] Extrayendo SPY (SPY:NYSE) desde Google Finance
+[2026-05-12 11:35:05] ⚠️  [WARN] SPY: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:05] ⚠️  [WARN] SPY: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:05] ✅ [INFO] Transformando SPY (1849 registros)
+[2026-05-12 11:35:05] ⚠️  [WARN] SPY: 1717 inconsistencias detectadas, 1717 corregidas
+[2026-05-12 11:35:05] ⚠️  [WARN] SPY: 34 anomalías corregidas
+[2026-05-12 11:35:05] ✅ [INFO] SPY: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:05] ✅ [INFO] Serie guardada: data/clean\SPY.csv (1849 registros)
+[2026-05-12 11:35:08] ✅ [INFO] 
+[11/20] VOO — Vanguard S&P 500 ETF
+[2026-05-12 11:35:08] ✅ [INFO] Extrayendo VOO (VOO) desde Yahoo Finance
+[2026-05-12 11:35:09] ✅ [INFO] VOO: 1849 registros extraídos
+[2026-05-12 11:35:09] ✅ [INFO] Extrayendo VOO (VOO:NYSE) desde Google Finance
+[2026-05-12 11:35:09] ⚠️  [WARN] VOO: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:09] ⚠️  [WARN] VOO: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:09] ✅ [INFO] Transformando VOO (1849 registros)
+[2026-05-12 11:35:09] ⚠️  [WARN] VOO: 1739 inconsistencias detectadas, 1739 corregidas
+[2026-05-12 11:35:09] ⚠️  [WARN] VOO: 34 anomalías corregidas
+[2026-05-12 11:35:09] ✅ [INFO] VOO: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:09] ✅ [INFO] Serie guardada: data/clean\VOO.csv (1849 registros)
+[2026-05-12 11:35:12] ✅ [INFO] 
+[12/20] CSPX — iShares Core S&P 500
+[2026-05-12 11:35:12] ✅ [INFO] Extrayendo CSPX (CSPX.L) desde Yahoo Finance
+[2026-05-12 11:35:13] ✅ [INFO] CSPX: 1855 registros extraídos
+[2026-05-12 11:35:13] ✅ [INFO] Extrayendo CSPX (CSPX:LON) desde Google Finance
+[2026-05-12 11:35:14] ✅ [INFO] CSPX: 1 registros extraídos en Google
+[2026-05-12 11:35:14] ✅ [INFO] CSPX: fusión completada (Yahoo=1855, Google=1, Final=1856)
+[2026-05-12 11:35:14] ✅ [INFO] Transformando CSPX (1856 registros)
+[2026-05-12 11:35:14] ⚠️  [WARN] CSPX: 3 inconsistencias detectadas, 3 corregidas
+[2026-05-12 11:35:14] ⚠️  [WARN] CSPX: 42 anomalías corregidas
+[2026-05-12 11:35:14] ✅ [INFO] CSPX: limpieza completada | entrada=1856, salida=1856, eliminados=0
+[2026-05-12 11:35:14] ✅ [INFO] Serie guardada: data/clean\CSPX.csv (1856 registros)
+[2026-05-12 11:35:17] ✅ [INFO] 
+[13/20] GXG — Global X Colombia ETF
+[2026-05-12 11:35:17] ✅ [INFO] Extrayendo GXG (GXG) desde Yahoo Finance
+[2026-05-12 11:35:18] ✅ [INFO] GXG: 1848 registros extraídos
+[2026-05-12 11:35:18] ✅ [INFO] Extrayendo GXG (GXG:NYSE) desde Google Finance
+[2026-05-12 11:35:19] ⚠️  [WARN] GXG: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:19] ⚠️  [WARN] GXG: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:19] ✅ [INFO] Transformando GXG (1848 registros)
+[2026-05-12 11:35:19] ⚠️  [WARN] GXG: 1757 inconsistencias detectadas, 1757 corregidas
+[2026-05-12 11:35:19] ⚠️  [WARN] GXG: 30 anomalías corregidas
+[2026-05-12 11:35:19] ✅ [INFO] GXG: limpieza completada | entrada=1848, salida=1848, eliminados=0
+[2026-05-12 11:35:19] ✅ [INFO] Serie guardada: data/clean\GXG.csv (1848 registros)
+[2026-05-12 11:35:22] ✅ [INFO] 
+[14/20] ILF — iShares Latin America
+[2026-05-12 11:35:22] ✅ [INFO] Extrayendo ILF (ILF) desde Yahoo Finance
+[2026-05-12 11:35:23] ✅ [INFO] ILF: 1849 registros extraídos
+[2026-05-12 11:35:23] ✅ [INFO] Extrayendo ILF (ILF:NYSE) desde Google Finance
+[2026-05-12 11:35:24] ⚠️  [WARN] ILF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:24] ⚠️  [WARN] ILF: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:24] ✅ [INFO] Transformando ILF (1849 registros)
+[2026-05-12 11:35:24] ⚠️  [WARN] ILF: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:35:24] ⚠️  [WARN] ILF: 23 anomalías corregidas
+[2026-05-12 11:35:24] ✅ [INFO] ILF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:24] ✅ [INFO] Serie guardada: data/clean\ILF.csv (1849 registros)
+[2026-05-12 11:35:27] ✅ [INFO] 
+[15/20] EWW — iShares MSCI Mexico
+[2026-05-12 11:35:27] ✅ [INFO] Extrayendo EWW (EWW) desde Yahoo Finance
+[2026-05-12 11:35:28] ✅ [INFO] EWW: 1849 registros extraídos
+[2026-05-12 11:35:28] ✅ [INFO] Extrayendo EWW (EWW:NYSE) desde Google Finance
+[2026-05-12 11:35:28] ⚠️  [WARN] EWW: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:28] ⚠️  [WARN] EWW: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:28] ✅ [INFO] Transformando EWW (1849 registros)
+[2026-05-12 11:35:28] ⚠️  [WARN] EWW: 1733 inconsistencias detectadas, 1733 corregidas
+[2026-05-12 11:35:28] ⚠️  [WARN] EWW: 20 anomalías corregidas
+[2026-05-12 11:35:28] ✅ [INFO] EWW: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:28] ✅ [INFO] Serie guardada: data/clean\EWW.csv (1849 registros)
+[2026-05-12 11:35:31] ✅ [INFO] 
+[16/20] XLF — Financial Select SPDR
+[2026-05-12 11:35:31] ✅ [INFO] Extrayendo XLF (XLF) desde Yahoo Finance
+[2026-05-12 11:35:32] ✅ [INFO] XLF: 1849 registros extraídos
+[2026-05-12 11:35:32] ✅ [INFO] Extrayendo XLF (XLF:NYSE) desde Google Finance
+[2026-05-12 11:35:33] ⚠️  [WARN] XLF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:33] ⚠️  [WARN] XLF: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:33] ✅ [INFO] Transformando XLF (1849 registros)
+[2026-05-12 11:35:33] ⚠️  [WARN] XLF: 1751 inconsistencias detectadas, 1751 corregidas
+[2026-05-12 11:35:33] ⚠️  [WARN] XLF: 34 anomalías corregidas
+[2026-05-12 11:35:33] ✅ [INFO] XLF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:33] ✅ [INFO] Serie guardada: data/clean\XLF.csv (1849 registros)
+[2026-05-12 11:35:36] ✅ [INFO] 
+[17/20] XLE — Energy Select SPDR
+[2026-05-12 11:35:36] ✅ [INFO] Extrayendo XLE (XLE) desde Yahoo Finance
+[2026-05-12 11:35:37] ✅ [INFO] XLE: 1849 registros extraídos
+[2026-05-12 11:35:37] ✅ [INFO] Extrayendo XLE (XLE:NYSE) desde Google Finance
+[2026-05-12 11:35:37] ⚠️  [WARN] XLE: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:37] ⚠️  [WARN] XLE: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:37] ✅ [INFO] Transformando XLE (1849 registros)
+[2026-05-12 11:35:38] ⚠️  [WARN] XLE: 1764 inconsistencias detectadas, 1764 corregidas
+[2026-05-12 11:35:38] ⚠️  [WARN] XLE: 30 anomalías corregidas
+[2026-05-12 11:35:38] ✅ [INFO] XLE: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:38] ✅ [INFO] Serie guardada: data/clean\XLE.csv (1849 registros)
+[2026-05-12 11:35:41] ✅ [INFO] 
+[18/20] EEM — iShares MSCI EM
+[2026-05-12 11:35:41] ✅ [INFO] Extrayendo EEM (EEM) desde Yahoo Finance
+[2026-05-12 11:35:41] ✅ [INFO] EEM: 1849 registros extraídos
+[2026-05-12 11:35:41] ✅ [INFO] Extrayendo EEM (EEM:NYSE) desde Google Finance
+[2026-05-12 11:35:42] ⚠️  [WARN] EEM: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:42] ⚠️  [WARN] EEM: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:42] ✅ [INFO] Transformando EEM (1849 registros)
+[2026-05-12 11:35:42] ⚠️  [WARN] EEM: 1747 inconsistencias detectadas, 1747 corregidas
+[2026-05-12 11:35:42] ⚠️  [WARN] EEM: 20 anomalías corregidas
+[2026-05-12 11:35:42] ✅ [INFO] EEM: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:42] ✅ [INFO] Serie guardada: data/clean\EEM.csv (1849 registros)
+[2026-05-12 11:35:45] ✅ [INFO] 
+[19/20] QQQ — Invesco QQQ Trust
+[2026-05-12 11:35:45] ✅ [INFO] Extrayendo QQQ (QQQ) desde Yahoo Finance
+[2026-05-12 11:35:46] ✅ [INFO] QQQ: 1849 registros extraídos
+[2026-05-12 11:35:46] ✅ [INFO] Extrayendo QQQ (QQQ:NYSE) desde Google Finance
+[2026-05-12 11:35:47] ⚠️  [WARN] QQQ: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:47] ⚠️  [WARN] QQQ: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:47] ✅ [INFO] Transformando QQQ (1849 registros)
+[2026-05-12 11:35:47] ⚠️  [WARN] QQQ: 1459 inconsistencias detectadas, 1459 corregidas
+[2026-05-12 11:35:47] ⚠️  [WARN] QQQ: 26 anomalías corregidas
+[2026-05-12 11:35:47] ✅ [INFO] QQQ: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:47] ✅ [INFO] Serie guardada: data/clean\QQQ.csv (1849 registros)
+[2026-05-12 11:35:50] ✅ [INFO] 
+[20/20] XLK — Technology Select SPDR
+[2026-05-12 11:35:50] ✅ [INFO] Extrayendo XLK (XLK) desde Yahoo Finance
+[2026-05-12 11:35:51] ✅ [INFO] XLK: 1849 registros extraídos
+[2026-05-12 11:35:51] ✅ [INFO] Extrayendo XLK (XLK:NYSE) desde Google Finance
+[2026-05-12 11:35:51] ⚠️  [WARN] XLK: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:35:51] ⚠️  [WARN] XLK: Google falló, se usa solo Yahoo
+[2026-05-12 11:35:51] ✅ [INFO] Transformando XLK (1849 registros)
+[2026-05-12 11:35:52] ⚠️  [WARN] XLK: 1483 inconsistencias detectadas, 1483 corregidas
+[2026-05-12 11:35:52] ⚠️  [WARN] XLK: 22 anomalías corregidas
+[2026-05-12 11:35:52] ✅ [INFO] XLK: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 11:35:52] ✅ [INFO] Serie guardada: data/clean\XLK.csv (1849 registros)
+[2026-05-12 11:35:55] ✅ [INFO] 
+Consolidando dataset maestro...
+[2026-05-12 11:35:55] ✅ [INFO] Dataset maestro generado: data/master_dataset.csv (36253 registros, 20 activos)
+[2026-05-12 11:35:55] ✅ [INFO] 
+============================================================
+[2026-05-12 11:35:55] ✅ [INFO] RESULTADO FINAL ETL
+[2026-05-12 11:35:55] ✅ [INFO] Activos procesados : 20/20
+Registros totales  : 36253
+Anomalías marcadas : 550
+Tasa de éxito      : 100.0%
+Errores            : 0
+[2026-05-12 11:35:55] ✅ [INFO] ============================================================
+[2026-05-12 11:44:41] ✅ [INFO] ============================================================
+[2026-05-12 11:44:41] ✅ [INFO] INICIO PIPELINE ETL
+[2026-05-12 11:44:41] ✅ [INFO] Activos     : 20
+[2026-05-12 11:44:41] ✅ [INFO] Periodo     : 2019-01-01 → 2026-05-12
+[2026-05-12 11:44:41] ✅ [INFO] Fuente      : Yahoo Finance + Google Finance
+[2026-05-12 11:44:41] ✅ [INFO] ============================================================
+[2026-05-12 11:44:41] ✅ [INFO] 
+[1/20] EC — Ecopetrol ADR
+[2026-05-12 11:44:41] ✅ [INFO] Extrayendo EC (EC) desde Yahoo Finance
+[2026-05-12 11:45:24] ✅ [INFO] EC: 1849 registros extraídos
+[2026-05-12 11:45:24] ✅ [INFO] Extrayendo EC (EC:NYSE) desde Google Finance
+[2026-05-12 11:45:27] ✅ [INFO] EC: 1 registros extraídos en Google
+[2026-05-12 11:45:27] ✅ [INFO] EC: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:45:27] ✅ [INFO] Transformando EC (1850 registros)
+[2026-05-12 11:45:27] ⚠️  [WARN] EC: 1833 inconsistencias detectadas, 1833 corregidas
+[2026-05-12 11:45:27] ⚠️  [WARN] EC: 33 anomalías eliminadas
+[2026-05-12 11:45:27] ✅ [INFO] EC: limpieza completada | entrada=1850, salida=1817, eliminados=33
+[2026-05-12 11:45:27] ✅ [INFO] Serie guardada: data/clean\EC.csv (1817 registros)
+[2026-05-12 11:45:30] ✅ [INFO] 
+[2/20] CIB — Bancolombia ADR
+[2026-05-12 11:45:30] ✅ [INFO] Extrayendo CIB (CIB) desde Yahoo Finance
+[2026-05-12 11:45:31] ✅ [INFO] CIB: 1849 registros extraídos
+[2026-05-12 11:45:31] ✅ [INFO] Extrayendo CIB (CIB:NYSE) desde Google Finance
+[2026-05-12 11:45:32] ✅ [INFO] CIB: 1 registros extraídos en Google
+[2026-05-12 11:45:32] ✅ [INFO] CIB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:45:32] ✅ [INFO] Transformando CIB (1850 registros)
+[2026-05-12 11:45:32] ⚠️  [WARN] CIB: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:45:32] ⚠️  [WARN] CIB: 24 anomalías eliminadas
+[2026-05-12 11:45:32] ✅ [INFO] CIB: limpieza completada | entrada=1850, salida=1826, eliminados=24
+[2026-05-12 11:45:32] ✅ [INFO] Serie guardada: data/clean\CIB.csv (1826 registros)
+[2026-05-12 11:45:35] ✅ [INFO] 
+[3/20] AVAL — Grupo Aval ADR
+[2026-05-12 11:45:35] ✅ [INFO] Extrayendo AVAL (AVAL) desde Yahoo Finance
+[2026-05-12 11:45:36] ✅ [INFO] AVAL: 1849 registros extraídos
+[2026-05-12 11:45:36] ✅ [INFO] Extrayendo AVAL (AVAL:NYSE) desde Google Finance
+[2026-05-12 11:45:39] ⚠️  [WARN] AVAL: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:45:39] ⚠️  [WARN] AVAL: Google falló, se usa solo Yahoo
+[2026-05-12 11:45:39] ✅ [INFO] Transformando AVAL (1849 registros)
+[2026-05-12 11:45:39] ⚠️  [WARN] AVAL: 1678 inconsistencias detectadas, 1678 corregidas
+[2026-05-12 11:45:39] ⚠️  [WARN] AVAL: 24 anomalías eliminadas
+[2026-05-12 11:45:39] ✅ [INFO] AVAL: limpieza completada | entrada=1849, salida=1825, eliminados=24
+[2026-05-12 11:45:39] ✅ [INFO] Serie guardada: data/clean\AVAL.csv (1825 registros)
+[2026-05-12 11:45:42] ✅ [INFO] 
+[4/20] BAP — Credicorp
+[2026-05-12 11:45:42] ✅ [INFO] Extrayendo BAP (BAP) desde Yahoo Finance
+[2026-05-12 11:45:43] ✅ [INFO] BAP: 1849 registros extraídos
+[2026-05-12 11:45:43] ✅ [INFO] Extrayendo BAP (BAP:NYSE) desde Google Finance
+[2026-05-12 11:45:43] ⚠️  [WARN] BAP: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:45:43] ⚠️  [WARN] BAP: Google falló, se usa solo Yahoo
+[2026-05-12 11:45:43] ✅ [INFO] Transformando BAP (1849 registros)
+[2026-05-12 11:45:44] ⚠️  [WARN] BAP: 1599 inconsistencias detectadas, 1599 corregidas
+[2026-05-12 11:45:44] ⚠️  [WARN] BAP: 40 anomalías eliminadas
+[2026-05-12 11:45:44] ✅ [INFO] BAP: limpieza completada | entrada=1849, salida=1809, eliminados=40
+[2026-05-12 11:45:44] ✅ [INFO] Serie guardada: data/clean\BAP.csv (1809 registros)
+[2026-05-12 11:45:47] ✅ [INFO] 
+[5/20] ITUB — Itaú Unibanco
+[2026-05-12 11:45:47] ✅ [INFO] Extrayendo ITUB (ITUB) desde Yahoo Finance
+[2026-05-12 11:45:48] ✅ [INFO] ITUB: 1849 registros extraídos
+[2026-05-12 11:45:48] ✅ [INFO] Extrayendo ITUB (ITUB:NYSE) desde Google Finance
+[2026-05-12 11:45:48] ✅ [INFO] ITUB: 1 registros extraídos en Google
+[2026-05-12 11:45:48] ✅ [INFO] ITUB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:45:48] ✅ [INFO] Transformando ITUB (1850 registros)
+[2026-05-12 11:45:48] ⚠️  [WARN] ITUB: 1784 inconsistencias detectadas, 1784 corregidas
+[2026-05-12 11:45:48] ⚠️  [WARN] ITUB: 19 anomalías eliminadas
+[2026-05-12 11:45:48] ✅ [INFO] ITUB: limpieza completada | entrada=1850, salida=1831, eliminados=19
+[2026-05-12 11:45:48] ✅ [INFO] Serie guardada: data/clean\ITUB.csv (1831 registros)
+[2026-05-12 11:45:51] ✅ [INFO] 
+[6/20] PBR — Petrobras
+[2026-05-12 11:45:51] ✅ [INFO] Extrayendo PBR (PBR) desde Yahoo Finance
+[2026-05-12 11:45:52] ✅ [INFO] PBR: 1849 registros extraídos
+[2026-05-12 11:45:52] ✅ [INFO] Extrayendo PBR (PBR:NYSE) desde Google Finance
+[2026-05-12 11:45:53] ✅ [INFO] PBR: 1 registros extraídos en Google
+[2026-05-12 11:45:53] ✅ [INFO] PBR: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:45:53] ✅ [INFO] Transformando PBR (1850 registros)
+[2026-05-12 11:45:53] ⚠️  [WARN] PBR: 1713 inconsistencias detectadas, 1713 corregidas
+[2026-05-12 11:45:53] ⚠️  [WARN] PBR: 30 anomalías eliminadas
+[2026-05-12 11:45:53] ✅ [INFO] PBR: limpieza completada | entrada=1850, salida=1820, eliminados=30
+[2026-05-12 11:45:53] ✅ [INFO] Serie guardada: data/clean\PBR.csv (1820 registros)
+[2026-05-12 11:45:56] ✅ [INFO] 
+[7/20] VALE — Vale S.A.
+[2026-05-12 11:45:56] ✅ [INFO] Extrayendo VALE (VALE) desde Yahoo Finance
+[2026-05-12 11:45:57] ✅ [INFO] VALE: 1849 registros extraídos
+[2026-05-12 11:45:57] ✅ [INFO] Extrayendo VALE (VALE:NYSE) desde Google Finance
+[2026-05-12 11:45:58] ✅ [INFO] VALE: 1 registros extraídos en Google
+[2026-05-12 11:45:58] ✅ [INFO] VALE: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:45:58] ✅ [INFO] Transformando VALE (1850 registros)
+[2026-05-12 11:45:58] ⚠️  [WARN] VALE: 1746 inconsistencias detectadas, 1746 corregidas
+[2026-05-12 11:45:58] ⚠️  [WARN] VALE: 18 anomalías eliminadas
+[2026-05-12 11:45:58] ✅ [INFO] VALE: limpieza completada | entrada=1850, salida=1832, eliminados=18
+[2026-05-12 11:45:58] ✅ [INFO] Serie guardada: data/clean\VALE.csv (1832 registros)
+[2026-05-12 11:46:01] ✅ [INFO] 
+[8/20] NU — Nu Holdings
+[2026-05-12 11:46:01] ✅ [INFO] Extrayendo NU (NU) desde Yahoo Finance
+[2026-05-12 11:46:02] ✅ [INFO] NU: 1108 registros extraídos
+[2026-05-12 11:46:02] ✅ [INFO] Extrayendo NU (NU:NYSE) desde Google Finance
+[2026-05-12 11:46:02] ✅ [INFO] NU: 1 registros extraídos en Google
+[2026-05-12 11:46:02] ✅ [INFO] NU: fusión completada (Yahoo=1108, Google=1, Final=1109)
+[2026-05-12 11:46:02] ✅ [INFO] Transformando NU (1109 registros)
+[2026-05-12 11:46:03] ⚠️  [WARN] NU: 29 anomalías eliminadas
+[2026-05-12 11:46:03] ✅ [INFO] NU: limpieza completada | entrada=1109, salida=1080, eliminados=29
+[2026-05-12 11:46:03] ✅ [INFO] Serie guardada: data/clean\NU.csv (1080 registros)
+[2026-05-12 11:46:06] ✅ [INFO] 
+[9/20] GGAL — Grupo Financiero Galicia
+[2026-05-12 11:46:06] ✅ [INFO] Extrayendo GGAL (GGAL) desde Yahoo Finance
+[2026-05-12 11:46:07] ✅ [INFO] GGAL: 1849 registros extraídos
+[2026-05-12 11:46:07] ✅ [INFO] Extrayendo GGAL (GGAL:NASDAQ) desde Google Finance
+[2026-05-12 11:46:07] ✅ [INFO] GGAL: 1 registros extraídos en Google
+[2026-05-12 11:46:07] ✅ [INFO] GGAL: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 11:46:07] ✅ [INFO] Transformando GGAL (1850 registros)
+[2026-05-12 11:46:07] ⚠️  [WARN] GGAL: 1769 inconsistencias detectadas, 1769 corregidas
+[2026-05-12 11:46:07] ⚠️  [WARN] GGAL: 18 anomalías eliminadas
+[2026-05-12 11:46:07] ✅ [INFO] GGAL: limpieza completada | entrada=1850, salida=1832, eliminados=18
+[2026-05-12 11:46:07] ✅ [INFO] Serie guardada: data/clean\GGAL.csv (1832 registros)
+[2026-05-12 11:46:10] ✅ [INFO] 
+[10/20] SPY — SPDR S&P 500 ETF
+[2026-05-12 11:46:10] ✅ [INFO] Extrayendo SPY (SPY) desde Yahoo Finance
+[2026-05-12 11:46:11] ✅ [INFO] SPY: 1849 registros extraídos
+[2026-05-12 11:46:11] ✅ [INFO] Extrayendo SPY (SPY:NYSE) desde Google Finance
+[2026-05-12 11:46:12] ⚠️  [WARN] SPY: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:12] ⚠️  [WARN] SPY: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:12] ✅ [INFO] Transformando SPY (1849 registros)
+[2026-05-12 11:46:12] ⚠️  [WARN] SPY: 1717 inconsistencias detectadas, 1717 corregidas
+[2026-05-12 11:46:12] ⚠️  [WARN] SPY: 34 anomalías eliminadas
+[2026-05-12 11:46:12] ✅ [INFO] SPY: limpieza completada | entrada=1849, salida=1815, eliminados=34
+[2026-05-12 11:46:12] ✅ [INFO] Serie guardada: data/clean\SPY.csv (1815 registros)
+[2026-05-12 11:46:15] ✅ [INFO] 
+[11/20] VOO — Vanguard S&P 500 ETF
+[2026-05-12 11:46:15] ✅ [INFO] Extrayendo VOO (VOO) desde Yahoo Finance
+[2026-05-12 11:46:16] ✅ [INFO] VOO: 1849 registros extraídos
+[2026-05-12 11:46:16] ✅ [INFO] Extrayendo VOO (VOO:NYSE) desde Google Finance
+[2026-05-12 11:46:16] ⚠️  [WARN] VOO: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:16] ⚠️  [WARN] VOO: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:16] ✅ [INFO] Transformando VOO (1849 registros)
+[2026-05-12 11:46:16] ⚠️  [WARN] VOO: 1739 inconsistencias detectadas, 1739 corregidas
+[2026-05-12 11:46:16] ⚠️  [WARN] VOO: 34 anomalías eliminadas
+[2026-05-12 11:46:16] ✅ [INFO] VOO: limpieza completada | entrada=1849, salida=1815, eliminados=34
+[2026-05-12 11:46:16] ✅ [INFO] Serie guardada: data/clean\VOO.csv (1815 registros)
+[2026-05-12 11:46:19] ✅ [INFO] 
+[12/20] CSPX — iShares Core S&P 500
+[2026-05-12 11:46:19] ✅ [INFO] Extrayendo CSPX (CSPX.L) desde Yahoo Finance
+[2026-05-12 11:46:20] ✅ [INFO] CSPX: 1855 registros extraídos
+[2026-05-12 11:46:20] ✅ [INFO] Extrayendo CSPX (CSPX:LON) desde Google Finance
+[2026-05-12 11:46:21] ✅ [INFO] CSPX: 1 registros extraídos en Google
+[2026-05-12 11:46:21] ✅ [INFO] CSPX: fusión completada (Yahoo=1855, Google=1, Final=1856)
+[2026-05-12 11:46:21] ✅ [INFO] Transformando CSPX (1856 registros)
+[2026-05-12 11:46:21] ⚠️  [WARN] CSPX: 3 inconsistencias detectadas, 3 corregidas
+[2026-05-12 11:46:21] ⚠️  [WARN] CSPX: 42 anomalías eliminadas
+[2026-05-12 11:46:21] ✅ [INFO] CSPX: limpieza completada | entrada=1856, salida=1814, eliminados=42
+[2026-05-12 11:46:21] ✅ [INFO] Serie guardada: data/clean\CSPX.csv (1814 registros)
+[2026-05-12 11:46:24] ✅ [INFO] 
+[13/20] GXG — Global X Colombia ETF
+[2026-05-12 11:46:24] ✅ [INFO] Extrayendo GXG (GXG) desde Yahoo Finance
+[2026-05-12 11:46:25] ✅ [INFO] GXG: 1848 registros extraídos
+[2026-05-12 11:46:25] ✅ [INFO] Extrayendo GXG (GXG:NYSE) desde Google Finance
+[2026-05-12 11:46:26] ⚠️  [WARN] GXG: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:26] ⚠️  [WARN] GXG: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:26] ✅ [INFO] Transformando GXG (1848 registros)
+[2026-05-12 11:46:26] ⚠️  [WARN] GXG: 1757 inconsistencias detectadas, 1757 corregidas
+[2026-05-12 11:46:26] ⚠️  [WARN] GXG: 30 anomalías eliminadas
+[2026-05-12 11:46:26] ✅ [INFO] GXG: limpieza completada | entrada=1848, salida=1818, eliminados=30
+[2026-05-12 11:46:26] ✅ [INFO] Serie guardada: data/clean\GXG.csv (1818 registros)
+[2026-05-12 11:46:29] ✅ [INFO] 
+[14/20] ILF — iShares Latin America
+[2026-05-12 11:46:29] ✅ [INFO] Extrayendo ILF (ILF) desde Yahoo Finance
+[2026-05-12 11:46:30] ✅ [INFO] ILF: 1849 registros extraídos
+[2026-05-12 11:46:30] ✅ [INFO] Extrayendo ILF (ILF:NYSE) desde Google Finance
+[2026-05-12 11:46:30] ⚠️  [WARN] ILF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:30] ⚠️  [WARN] ILF: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:30] ✅ [INFO] Transformando ILF (1849 registros)
+[2026-05-12 11:46:30] ⚠️  [WARN] ILF: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 11:46:30] ⚠️  [WARN] ILF: 23 anomalías eliminadas
+[2026-05-12 11:46:30] ✅ [INFO] ILF: limpieza completada | entrada=1849, salida=1826, eliminados=23
+[2026-05-12 11:46:30] ✅ [INFO] Serie guardada: data/clean\ILF.csv (1826 registros)
+[2026-05-12 11:46:33] ✅ [INFO] 
+[15/20] EWW — iShares MSCI Mexico
+[2026-05-12 11:46:33] ✅ [INFO] Extrayendo EWW (EWW) desde Yahoo Finance
+[2026-05-12 11:46:34] ✅ [INFO] EWW: 1849 registros extraídos
+[2026-05-12 11:46:34] ✅ [INFO] Extrayendo EWW (EWW:NYSE) desde Google Finance
+[2026-05-12 11:46:35] ⚠️  [WARN] EWW: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:35] ⚠️  [WARN] EWW: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:35] ✅ [INFO] Transformando EWW (1849 registros)
+[2026-05-12 11:46:35] ⚠️  [WARN] EWW: 1733 inconsistencias detectadas, 1733 corregidas
+[2026-05-12 11:46:35] ⚠️  [WARN] EWW: 20 anomalías eliminadas
+[2026-05-12 11:46:35] ✅ [INFO] EWW: limpieza completada | entrada=1849, salida=1829, eliminados=20
+[2026-05-12 11:46:35] ✅ [INFO] Serie guardada: data/clean\EWW.csv (1829 registros)
+[2026-05-12 11:46:38] ✅ [INFO] 
+[16/20] XLF — Financial Select SPDR
+[2026-05-12 11:46:38] ✅ [INFO] Extrayendo XLF (XLF) desde Yahoo Finance
+[2026-05-12 11:46:39] ✅ [INFO] XLF: 1849 registros extraídos
+[2026-05-12 11:46:39] ✅ [INFO] Extrayendo XLF (XLF:NYSE) desde Google Finance
+[2026-05-12 11:46:39] ⚠️  [WARN] XLF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:39] ⚠️  [WARN] XLF: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:39] ✅ [INFO] Transformando XLF (1849 registros)
+[2026-05-12 11:46:39] ⚠️  [WARN] XLF: 1751 inconsistencias detectadas, 1751 corregidas
+[2026-05-12 11:46:39] ⚠️  [WARN] XLF: 34 anomalías eliminadas
+[2026-05-12 11:46:39] ✅ [INFO] XLF: limpieza completada | entrada=1849, salida=1815, eliminados=34
+[2026-05-12 11:46:39] ✅ [INFO] Serie guardada: data/clean\XLF.csv (1815 registros)
+[2026-05-12 11:46:42] ✅ [INFO] 
+[17/20] XLE — Energy Select SPDR
+[2026-05-12 11:46:42] ✅ [INFO] Extrayendo XLE (XLE) desde Yahoo Finance
+[2026-05-12 11:46:43] ✅ [INFO] XLE: 1849 registros extraídos
+[2026-05-12 11:46:43] ✅ [INFO] Extrayendo XLE (XLE:NYSE) desde Google Finance
+[2026-05-12 11:46:44] ⚠️  [WARN] XLE: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:44] ⚠️  [WARN] XLE: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:44] ✅ [INFO] Transformando XLE (1849 registros)
+[2026-05-12 11:46:44] ⚠️  [WARN] XLE: 1764 inconsistencias detectadas, 1764 corregidas
+[2026-05-12 11:46:44] ⚠️  [WARN] XLE: 30 anomalías eliminadas
+[2026-05-12 11:46:44] ✅ [INFO] XLE: limpieza completada | entrada=1849, salida=1819, eliminados=30
+[2026-05-12 11:46:44] ✅ [INFO] Serie guardada: data/clean\XLE.csv (1819 registros)
+[2026-05-12 11:46:47] ✅ [INFO] 
+[18/20] EEM — iShares MSCI EM
+[2026-05-12 11:46:47] ✅ [INFO] Extrayendo EEM (EEM) desde Yahoo Finance
+[2026-05-12 11:46:48] ✅ [INFO] EEM: 1849 registros extraídos
+[2026-05-12 11:46:48] ✅ [INFO] Extrayendo EEM (EEM:NYSE) desde Google Finance
+[2026-05-12 11:46:48] ⚠️  [WARN] EEM: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:48] ⚠️  [WARN] EEM: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:48] ✅ [INFO] Transformando EEM (1849 registros)
+[2026-05-12 11:46:49] ⚠️  [WARN] EEM: 1747 inconsistencias detectadas, 1747 corregidas
+[2026-05-12 11:46:49] ⚠️  [WARN] EEM: 20 anomalías eliminadas
+[2026-05-12 11:46:49] ✅ [INFO] EEM: limpieza completada | entrada=1849, salida=1829, eliminados=20
+[2026-05-12 11:46:49] ✅ [INFO] Serie guardada: data/clean\EEM.csv (1829 registros)
+[2026-05-12 11:46:52] ✅ [INFO] 
+[19/20] QQQ — Invesco QQQ Trust
+[2026-05-12 11:46:52] ✅ [INFO] Extrayendo QQQ (QQQ) desde Yahoo Finance
+[2026-05-12 11:46:53] ✅ [INFO] QQQ: 1849 registros extraídos
+[2026-05-12 11:46:53] ✅ [INFO] Extrayendo QQQ (QQQ:NYSE) desde Google Finance
+[2026-05-12 11:46:53] ⚠️  [WARN] QQQ: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:53] ⚠️  [WARN] QQQ: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:53] ✅ [INFO] Transformando QQQ (1849 registros)
+[2026-05-12 11:46:53] ⚠️  [WARN] QQQ: 1459 inconsistencias detectadas, 1459 corregidas
+[2026-05-12 11:46:53] ⚠️  [WARN] QQQ: 26 anomalías eliminadas
+[2026-05-12 11:46:53] ✅ [INFO] QQQ: limpieza completada | entrada=1849, salida=1823, eliminados=26
+[2026-05-12 11:46:53] ✅ [INFO] Serie guardada: data/clean\QQQ.csv (1823 registros)
+[2026-05-12 11:46:56] ✅ [INFO] 
+[20/20] XLK — Technology Select SPDR
+[2026-05-12 11:46:56] ✅ [INFO] Extrayendo XLK (XLK) desde Yahoo Finance
+[2026-05-12 11:46:57] ✅ [INFO] XLK: 1849 registros extraídos
+[2026-05-12 11:46:57] ✅ [INFO] Extrayendo XLK (XLK:NYSE) desde Google Finance
+[2026-05-12 11:46:58] ⚠️  [WARN] XLK: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 11:46:58] ⚠️  [WARN] XLK: Google falló, se usa solo Yahoo
+[2026-05-12 11:46:58] ✅ [INFO] Transformando XLK (1849 registros)
+[2026-05-12 11:46:58] ⚠️  [WARN] XLK: 1483 inconsistencias detectadas, 1483 corregidas
+[2026-05-12 11:46:58] ⚠️  [WARN] XLK: 22 anomalías eliminadas
+[2026-05-12 11:46:58] ✅ [INFO] XLK: limpieza completada | entrada=1849, salida=1827, eliminados=22
+[2026-05-12 11:46:58] ✅ [INFO] Serie guardada: data/clean\XLK.csv (1827 registros)
+[2026-05-12 11:47:01] ✅ [INFO] 
+Consolidando dataset maestro...
+[2026-05-12 11:47:01] ✅ [INFO] Dataset maestro generado: data/master_dataset.csv (35702 registros, 20 activos)
+[2026-05-12 11:47:01] ✅ [INFO] 
+============================================================
+[2026-05-12 11:47:01] ✅ [INFO] RESULTADO FINAL ETL
+[2026-05-12 11:47:01] ✅ [INFO] Activos procesados : 20/20
+Registros totales  : 35702
+Anomalías marcadas : 0
+Tasa de éxito      : 100.0%
+Errores            : 0
+[2026-05-12 11:47:01] ✅ [INFO] ============================================================
+[2026-05-12 13:18:34] ✅ [INFO] ============================================================
+[2026-05-12 13:18:34] ✅ [INFO] INICIO PIPELINE ETL
+[2026-05-12 13:18:34] ✅ [INFO] Activos     : 20
+[2026-05-12 13:18:34] ✅ [INFO] Periodo     : 2019-01-01 → 2026-05-12
+[2026-05-12 13:18:34] ✅ [INFO] Fuente      : Yahoo Finance + Google Finance
+[2026-05-12 13:18:34] ✅ [INFO] ============================================================
+[2026-05-12 13:18:34] ✅ [INFO] 
+[1/20] EC — Ecopetrol ADR
+[2026-05-12 13:18:34] ✅ [INFO] Extrayendo EC (EC) desde Yahoo Finance
+[2026-05-12 13:19:18] ✅ [INFO] EC: 1849 registros extraídos
+[2026-05-12 13:19:18] ✅ [INFO] Extrayendo EC (EC:NYSE) desde Google Finance
+[2026-05-12 13:19:20] ✅ [INFO] EC: 1 registros extraídos en Google
+[2026-05-12 13:19:20] ✅ [INFO] EC: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:20] ✅ [INFO] Transformando EC (1850 registros)
+[2026-05-12 13:19:20] ⚠️  [WARN] EC: 1833 inconsistencias detectadas, 1833 corregidas
+[2026-05-12 13:19:20] ⚠️  [WARN] EC: 33 registros marcados como anomalía
+[2026-05-12 13:19:20] ✅ [INFO] EC: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:20] ✅ [INFO] Serie guardada: data/clean\EC.csv (1850 registros)
+[2026-05-12 13:19:23] ✅ [INFO] 
+[2/20] CIB — Bancolombia ADR
+[2026-05-12 13:19:23] ✅ [INFO] Extrayendo CIB (CIB) desde Yahoo Finance
+[2026-05-12 13:19:24] ✅ [INFO] CIB: 1849 registros extraídos
+[2026-05-12 13:19:24] ✅ [INFO] Extrayendo CIB (CIB:NYSE) desde Google Finance
+[2026-05-12 13:19:25] ✅ [INFO] CIB: 1 registros extraídos en Google
+[2026-05-12 13:19:25] ✅ [INFO] CIB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:25] ✅ [INFO] Transformando CIB (1850 registros)
+[2026-05-12 13:19:25] ⚠️  [WARN] CIB: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 13:19:25] ⚠️  [WARN] CIB: 24 registros marcados como anomalía
+[2026-05-12 13:19:25] ✅ [INFO] CIB: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:25] ✅ [INFO] Serie guardada: data/clean\CIB.csv (1850 registros)
+[2026-05-12 13:19:28] ✅ [INFO] 
+[3/20] AVAL — Grupo Aval ADR
+[2026-05-12 13:19:28] ✅ [INFO] Extrayendo AVAL (AVAL) desde Yahoo Finance
+[2026-05-12 13:19:29] ✅ [INFO] AVAL: 1849 registros extraídos
+[2026-05-12 13:19:29] ✅ [INFO] Extrayendo AVAL (AVAL:NYSE) desde Google Finance
+[2026-05-12 13:19:30] ✅ [INFO] AVAL: 1 registros extraídos en Google
+[2026-05-12 13:19:30] ✅ [INFO] AVAL: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:30] ✅ [INFO] Transformando AVAL (1850 registros)
+[2026-05-12 13:19:30] ⚠️  [WARN] AVAL: 1678 inconsistencias detectadas, 1678 corregidas
+[2026-05-12 13:19:30] ⚠️  [WARN] AVAL: 23 registros marcados como anomalía
+[2026-05-12 13:19:30] ✅ [INFO] AVAL: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:30] ✅ [INFO] Serie guardada: data/clean\AVAL.csv (1850 registros)
+[2026-05-12 13:19:33] ✅ [INFO] 
+[4/20] BAP — Credicorp
+[2026-05-12 13:19:33] ✅ [INFO] Extrayendo BAP (BAP) desde Yahoo Finance
+[2026-05-12 13:19:34] ✅ [INFO] BAP: 1849 registros extraídos
+[2026-05-12 13:19:34] ✅ [INFO] Extrayendo BAP (BAP:NYSE) desde Google Finance
+[2026-05-12 13:19:35] ✅ [INFO] BAP: 1 registros extraídos en Google
+[2026-05-12 13:19:35] ✅ [INFO] BAP: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:35] ✅ [INFO] Transformando BAP (1850 registros)
+[2026-05-12 13:19:35] ⚠️  [WARN] BAP: 1599 inconsistencias detectadas, 1599 corregidas
+[2026-05-12 13:19:35] ⚠️  [WARN] BAP: 40 registros marcados como anomalía
+[2026-05-12 13:19:35] ✅ [INFO] BAP: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:35] ✅ [INFO] Serie guardada: data/clean\BAP.csv (1850 registros)
+[2026-05-12 13:19:38] ✅ [INFO] 
+[5/20] ITUB — Itaú Unibanco
+[2026-05-12 13:19:38] ✅ [INFO] Extrayendo ITUB (ITUB) desde Yahoo Finance
+[2026-05-12 13:19:39] ✅ [INFO] ITUB: 1849 registros extraídos
+[2026-05-12 13:19:39] ✅ [INFO] Extrayendo ITUB (ITUB:NYSE) desde Google Finance
+[2026-05-12 13:19:40] ✅ [INFO] ITUB: 1 registros extraídos en Google
+[2026-05-12 13:19:40] ✅ [INFO] ITUB: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:40] ✅ [INFO] Transformando ITUB (1850 registros)
+[2026-05-12 13:19:40] ⚠️  [WARN] ITUB: 1784 inconsistencias detectadas, 1784 corregidas
+[2026-05-12 13:19:40] ⚠️  [WARN] ITUB: 19 registros marcados como anomalía
+[2026-05-12 13:19:40] ✅ [INFO] ITUB: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:40] ✅ [INFO] Serie guardada: data/clean\ITUB.csv (1850 registros)
+[2026-05-12 13:19:43] ✅ [INFO] 
+[6/20] PBR — Petrobras
+[2026-05-12 13:19:43] ✅ [INFO] Extrayendo PBR (PBR) desde Yahoo Finance
+[2026-05-12 13:19:44] ✅ [INFO] PBR: 1849 registros extraídos
+[2026-05-12 13:19:44] ✅ [INFO] Extrayendo PBR (PBR:NYSE) desde Google Finance
+[2026-05-12 13:19:45] ✅ [INFO] PBR: 1 registros extraídos en Google
+[2026-05-12 13:19:45] ✅ [INFO] PBR: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:45] ✅ [INFO] Transformando PBR (1850 registros)
+[2026-05-12 13:19:45] ⚠️  [WARN] PBR: 1713 inconsistencias detectadas, 1713 corregidas
+[2026-05-12 13:19:45] ⚠️  [WARN] PBR: 30 registros marcados como anomalía
+[2026-05-12 13:19:45] ✅ [INFO] PBR: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:45] ✅ [INFO] Serie guardada: data/clean\PBR.csv (1850 registros)
+[2026-05-12 13:19:48] ✅ [INFO] 
+[7/20] VALE — Vale S.A.
+[2026-05-12 13:19:48] ✅ [INFO] Extrayendo VALE (VALE) desde Yahoo Finance
+[2026-05-12 13:19:49] ✅ [INFO] VALE: 1849 registros extraídos
+[2026-05-12 13:19:49] ✅ [INFO] Extrayendo VALE (VALE:NYSE) desde Google Finance
+[2026-05-12 13:19:50] ✅ [INFO] VALE: 1 registros extraídos en Google
+[2026-05-12 13:19:50] ✅ [INFO] VALE: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:50] ✅ [INFO] Transformando VALE (1850 registros)
+[2026-05-12 13:19:50] ⚠️  [WARN] VALE: 1746 inconsistencias detectadas, 1746 corregidas
+[2026-05-12 13:19:50] ⚠️  [WARN] VALE: 18 registros marcados como anomalía
+[2026-05-12 13:19:50] ✅ [INFO] VALE: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:50] ✅ [INFO] Serie guardada: data/clean\VALE.csv (1850 registros)
+[2026-05-12 13:19:53] ✅ [INFO] 
+[8/20] NU — Nu Holdings
+[2026-05-12 13:19:53] ✅ [INFO] Extrayendo NU (NU) desde Yahoo Finance
+[2026-05-12 13:19:54] ✅ [INFO] NU: 1108 registros extraídos
+[2026-05-12 13:19:54] ✅ [INFO] Extrayendo NU (NU:NYSE) desde Google Finance
+[2026-05-12 13:19:54] ✅ [INFO] NU: 1 registros extraídos en Google
+[2026-05-12 13:19:54] ✅ [INFO] NU: fusión completada (Yahoo=1108, Google=1, Final=1109)
+[2026-05-12 13:19:54] ✅ [INFO] Transformando NU (1109 registros)
+[2026-05-12 13:19:54] ⚠️  [WARN] NU: 29 registros marcados como anomalía
+[2026-05-12 13:19:54] ✅ [INFO] NU: limpieza completada | entrada=1109, salida=1109, eliminados=0
+[2026-05-12 13:19:55] ✅ [INFO] Serie guardada: data/clean\NU.csv (1109 registros)
+[2026-05-12 13:19:58] ✅ [INFO] 
+[9/20] GGAL — Grupo Financiero Galicia
+[2026-05-12 13:19:58] ✅ [INFO] Extrayendo GGAL (GGAL) desde Yahoo Finance
+[2026-05-12 13:19:59] ✅ [INFO] GGAL: 1849 registros extraídos
+[2026-05-12 13:19:59] ✅ [INFO] Extrayendo GGAL (GGAL:NASDAQ) desde Google Finance
+[2026-05-12 13:19:59] ✅ [INFO] GGAL: 1 registros extraídos en Google
+[2026-05-12 13:19:59] ✅ [INFO] GGAL: fusión completada (Yahoo=1849, Google=1, Final=1850)
+[2026-05-12 13:19:59] ✅ [INFO] Transformando GGAL (1850 registros)
+[2026-05-12 13:19:59] ⚠️  [WARN] GGAL: 1769 inconsistencias detectadas, 1769 corregidas
+[2026-05-12 13:19:59] ⚠️  [WARN] GGAL: 18 registros marcados como anomalía
+[2026-05-12 13:19:59] ✅ [INFO] GGAL: limpieza completada | entrada=1850, salida=1850, eliminados=0
+[2026-05-12 13:19:59] ✅ [INFO] Serie guardada: data/clean\GGAL.csv (1850 registros)
+[2026-05-12 13:20:02] ✅ [INFO] 
+[10/20] SPY — SPDR S&P 500 ETF
+[2026-05-12 13:20:02] ✅ [INFO] Extrayendo SPY (SPY) desde Yahoo Finance
+[2026-05-12 13:20:03] ✅ [INFO] SPY: 1849 registros extraídos
+[2026-05-12 13:20:03] ✅ [INFO] Extrayendo SPY (SPY:NYSE) desde Google Finance
+[2026-05-12 13:20:04] ⚠️  [WARN] SPY: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:04] ⚠️  [WARN] SPY: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:04] ✅ [INFO] Transformando SPY (1849 registros)
+[2026-05-12 13:20:04] ⚠️  [WARN] SPY: 1717 inconsistencias detectadas, 1717 corregidas
+[2026-05-12 13:20:04] ⚠️  [WARN] SPY: 34 registros marcados como anomalía
+[2026-05-12 13:20:04] ✅ [INFO] SPY: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:04] ✅ [INFO] Serie guardada: data/clean\SPY.csv (1849 registros)
+[2026-05-12 13:20:07] ✅ [INFO] 
+[11/20] VOO — Vanguard S&P 500 ETF
+[2026-05-12 13:20:07] ✅ [INFO] Extrayendo VOO (VOO) desde Yahoo Finance
+[2026-05-12 13:20:08] ✅ [INFO] VOO: 1849 registros extraídos
+[2026-05-12 13:20:08] ✅ [INFO] Extrayendo VOO (VOO:NYSE) desde Google Finance
+[2026-05-12 13:20:08] ⚠️  [WARN] VOO: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:08] ⚠️  [WARN] VOO: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:08] ✅ [INFO] Transformando VOO (1849 registros)
+[2026-05-12 13:20:09] ⚠️  [WARN] VOO: 1739 inconsistencias detectadas, 1739 corregidas
+[2026-05-12 13:20:09] ⚠️  [WARN] VOO: 34 registros marcados como anomalía
+[2026-05-12 13:20:09] ✅ [INFO] VOO: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:09] ✅ [INFO] Serie guardada: data/clean\VOO.csv (1849 registros)
+[2026-05-12 13:20:12] ✅ [INFO] 
+[12/20] CSPX — iShares Core S&P 500
+[2026-05-12 13:20:12] ✅ [INFO] Extrayendo CSPX (CSPX.L) desde Yahoo Finance
+[2026-05-12 13:20:13] ✅ [INFO] CSPX: 1855 registros extraídos
+[2026-05-12 13:20:13] ✅ [INFO] Extrayendo CSPX (CSPX:LON) desde Google Finance
+[2026-05-12 13:20:13] ✅ [INFO] CSPX: 1 registros extraídos en Google
+[2026-05-12 13:20:13] ✅ [INFO] CSPX: fusión completada (Yahoo=1855, Google=1, Final=1856)
+[2026-05-12 13:20:13] ✅ [INFO] Transformando CSPX (1856 registros)
+[2026-05-12 13:20:13] ⚠️  [WARN] CSPX: 3 inconsistencias detectadas, 3 corregidas
+[2026-05-12 13:20:13] ⚠️  [WARN] CSPX: 42 registros marcados como anomalía
+[2026-05-12 13:20:13] ✅ [INFO] CSPX: limpieza completada | entrada=1856, salida=1856, eliminados=0
+[2026-05-12 13:20:14] ✅ [INFO] Serie guardada: data/clean\CSPX.csv (1856 registros)
+[2026-05-12 13:20:17] ✅ [INFO] 
+[13/20] GXG — Global X Colombia ETF
+[2026-05-12 13:20:17] ✅ [INFO] Extrayendo GXG (GXG) desde Yahoo Finance
+[2026-05-12 13:20:18] ✅ [INFO] GXG: 1848 registros extraídos
+[2026-05-12 13:20:18] ✅ [INFO] Extrayendo GXG (GXG:NYSE) desde Google Finance
+[2026-05-12 13:20:18] ⚠️  [WARN] GXG: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:18] ⚠️  [WARN] GXG: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:18] ✅ [INFO] Transformando GXG (1848 registros)
+[2026-05-12 13:20:19] ⚠️  [WARN] GXG: 1757 inconsistencias detectadas, 1757 corregidas
+[2026-05-12 13:20:19] ⚠️  [WARN] GXG: 30 registros marcados como anomalía
+[2026-05-12 13:20:19] ✅ [INFO] GXG: limpieza completada | entrada=1848, salida=1848, eliminados=0
+[2026-05-12 13:20:19] ✅ [INFO] Serie guardada: data/clean\GXG.csv (1848 registros)
+[2026-05-12 13:20:22] ✅ [INFO] 
+[14/20] ILF — iShares Latin America
+[2026-05-12 13:20:22] ✅ [INFO] Extrayendo ILF (ILF) desde Yahoo Finance
+[2026-05-12 13:20:22] ✅ [INFO] ILF: 1849 registros extraídos
+[2026-05-12 13:20:22] ✅ [INFO] Extrayendo ILF (ILF:NYSE) desde Google Finance
+[2026-05-12 13:20:23] ⚠️  [WARN] ILF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:23] ⚠️  [WARN] ILF: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:23] ✅ [INFO] Transformando ILF (1849 registros)
+[2026-05-12 13:20:23] ⚠️  [WARN] ILF: 1752 inconsistencias detectadas, 1752 corregidas
+[2026-05-12 13:20:23] ⚠️  [WARN] ILF: 23 registros marcados como anomalía
+[2026-05-12 13:20:23] ✅ [INFO] ILF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:23] ✅ [INFO] Serie guardada: data/clean\ILF.csv (1849 registros)
+[2026-05-12 13:20:26] ✅ [INFO] 
+[15/20] EWW — iShares MSCI Mexico
+[2026-05-12 13:20:26] ✅ [INFO] Extrayendo EWW (EWW) desde Yahoo Finance
+[2026-05-12 13:20:27] ✅ [INFO] EWW: 1849 registros extraídos
+[2026-05-12 13:20:27] ✅ [INFO] Extrayendo EWW (EWW:NYSE) desde Google Finance
+[2026-05-12 13:20:28] ⚠️  [WARN] EWW: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:28] ⚠️  [WARN] EWW: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:28] ✅ [INFO] Transformando EWW (1849 registros)
+[2026-05-12 13:20:28] ⚠️  [WARN] EWW: 1733 inconsistencias detectadas, 1733 corregidas
+[2026-05-12 13:20:28] ⚠️  [WARN] EWW: 20 registros marcados como anomalía
+[2026-05-12 13:20:28] ✅ [INFO] EWW: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:28] ✅ [INFO] Serie guardada: data/clean\EWW.csv (1849 registros)
+[2026-05-12 13:20:31] ✅ [INFO] 
+[16/20] XLF — Financial Select SPDR
+[2026-05-12 13:20:31] ✅ [INFO] Extrayendo XLF (XLF) desde Yahoo Finance
+[2026-05-12 13:20:32] ✅ [INFO] XLF: 1849 registros extraídos
+[2026-05-12 13:20:32] ✅ [INFO] Extrayendo XLF (XLF:NYSE) desde Google Finance
+[2026-05-12 13:20:32] ⚠️  [WARN] XLF: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:32] ⚠️  [WARN] XLF: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:32] ✅ [INFO] Transformando XLF (1849 registros)
+[2026-05-12 13:20:33] ⚠️  [WARN] XLF: 1751 inconsistencias detectadas, 1751 corregidas
+[2026-05-12 13:20:33] ⚠️  [WARN] XLF: 34 registros marcados como anomalía
+[2026-05-12 13:20:33] ✅ [INFO] XLF: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:33] ✅ [INFO] Serie guardada: data/clean\XLF.csv (1849 registros)
+[2026-05-12 13:20:36] ✅ [INFO] 
+[17/20] XLE — Energy Select SPDR
+[2026-05-12 13:20:36] ✅ [INFO] Extrayendo XLE (XLE) desde Yahoo Finance
+[2026-05-12 13:20:37] ✅ [INFO] XLE: 1849 registros extraídos
+[2026-05-12 13:20:37] ✅ [INFO] Extrayendo XLE (XLE:NYSE) desde Google Finance
+[2026-05-12 13:20:37] ⚠️  [WARN] XLE: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:37] ⚠️  [WARN] XLE: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:37] ✅ [INFO] Transformando XLE (1849 registros)
+[2026-05-12 13:20:37] ⚠️  [WARN] XLE: 1764 inconsistencias detectadas, 1764 corregidas
+[2026-05-12 13:20:37] ⚠️  [WARN] XLE: 30 registros marcados como anomalía
+[2026-05-12 13:20:37] ✅ [INFO] XLE: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:37] ✅ [INFO] Serie guardada: data/clean\XLE.csv (1849 registros)
+[2026-05-12 13:20:40] ✅ [INFO] 
+[18/20] EEM — iShares MSCI EM
+[2026-05-12 13:20:40] ✅ [INFO] Extrayendo EEM (EEM) desde Yahoo Finance
+[2026-05-12 13:20:41] ✅ [INFO] EEM: 1849 registros extraídos
+[2026-05-12 13:20:41] ✅ [INFO] Extrayendo EEM (EEM:NYSE) desde Google Finance
+[2026-05-12 13:20:42] ⚠️  [WARN] EEM: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:42] ⚠️  [WARN] EEM: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:42] ✅ [INFO] Transformando EEM (1849 registros)
+[2026-05-12 13:20:42] ⚠️  [WARN] EEM: 1747 inconsistencias detectadas, 1747 corregidas
+[2026-05-12 13:20:42] ⚠️  [WARN] EEM: 20 registros marcados como anomalía
+[2026-05-12 13:20:42] ✅ [INFO] EEM: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:42] ✅ [INFO] Serie guardada: data/clean\EEM.csv (1849 registros)
+[2026-05-12 13:20:45] ✅ [INFO] 
+[19/20] QQQ — Invesco QQQ Trust
+[2026-05-12 13:20:45] ✅ [INFO] Extrayendo QQQ (QQQ) desde Yahoo Finance
+[2026-05-12 13:20:46] ✅ [INFO] QQQ: 1849 registros extraídos
+[2026-05-12 13:20:46] ✅ [INFO] Extrayendo QQQ (QQQ:NYSE) desde Google Finance
+[2026-05-12 13:20:47] ⚠️  [WARN] QQQ: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:47] ⚠️  [WARN] QQQ: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:47] ✅ [INFO] Transformando QQQ (1849 registros)
+[2026-05-12 13:20:47] ⚠️  [WARN] QQQ: 1459 inconsistencias detectadas, 1459 corregidas
+[2026-05-12 13:20:47] ⚠️  [WARN] QQQ: 26 registros marcados como anomalía
+[2026-05-12 13:20:47] ✅ [INFO] QQQ: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:47] ✅ [INFO] Serie guardada: data/clean\QQQ.csv (1849 registros)
+[2026-05-12 13:20:50] ✅ [INFO] 
+[20/20] XLK — Technology Select SPDR
+[2026-05-12 13:20:50] ✅ [INFO] Extrayendo XLK (XLK) desde Yahoo Finance
+[2026-05-12 13:20:51] ✅ [INFO] XLK: 1849 registros extraídos
+[2026-05-12 13:20:51] ✅ [INFO] Extrayendo XLK (XLK:NYSE) desde Google Finance
+[2026-05-12 13:20:52] ⚠️  [WARN] XLK: respuesta recibida pero sin registros válidos en Google
+[2026-05-12 13:20:52] ⚠️  [WARN] XLK: Google falló, se usa solo Yahoo
+[2026-05-12 13:20:52] ✅ [INFO] Transformando XLK (1849 registros)
+[2026-05-12 13:20:52] ⚠️  [WARN] XLK: 1483 inconsistencias detectadas, 1483 corregidas
+[2026-05-12 13:20:52] ⚠️  [WARN] XLK: 22 registros marcados como anomalía
+[2026-05-12 13:20:52] ✅ [INFO] XLK: limpieza completada | entrada=1849, salida=1849, eliminados=0
+[2026-05-12 13:20:52] ✅ [INFO] Serie guardada: data/clean\XLK.csv (1849 registros)
+[2026-05-12 13:20:55] ✅ [INFO] 
+Consolidando dataset maestro...
+[2026-05-12 13:20:55] ✅ [INFO] Dataset maestro generado: data/master_dataset.csv (36254 registros, 20 activos)
+[2026-05-12 13:20:55] ✅ [INFO] 
+============================================================
+[2026-05-12 13:20:55] ✅ [INFO] RESULTADO FINAL ETL
+[2026-05-12 13:20:55] ✅ [INFO] Activos procesados : 20/20
+Registros totales  : 36254
+Anomalías marcadas : 549
+Tasa de éxito      : 100.0%
+Errores            : 0
+[2026-05-12 13:20:55] ✅ [INFO] ============================================================

@@ -1,249 +1,408 @@
-# =============================================================================
-# etl/transformador.py — Limpieza y normalización de series temporales
-# Implementa ITransformador (Principio DIP / SRP)
-# =============================================================================
-import math
 import copy
+import math
+from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from etl.interfaces import ITransformador, ILogger
-from etl.models import SerieHistorica, RegistroPrecio
-from config import ZSCORE_UMBRAL_ANOMALIA, MAX_GAPS_INTERPOLACION
+from config import MAX_GAPS_INTERPOLACION, ZSCORE_UMBRAL_ANOMALIA
+from etl.interfaces import ILogger, ITransformador
+from etl.models import RegistroPrecio, SerieHistorica
+
+
+@dataclass
+class ResultadoLimpieza:
+    registros_entrada: int = 0
+    registros_salida: int = 0
+    registros_eliminados: int = 0
+    duplicados_consolidados: int = 0
+    faltantes_detectados: int = 0
+    faltantes_interpolados: int = 0
+    inconsistencias_detectadas: int = 0
+    inconsistencias_corregidas: int = 0
+    anomalias_detectadas: int = 0
+    anomalias_marcadas: int = 0
+    anomalias_eliminadas: int = 0
 
 
 class DetectorValoresFaltantes:
-    """
-    Detecta gaps en una serie temporal.
-    Principio SRP: única responsabilidad de detección.
-    """
-
     def detectar(self, registros: List[RegistroPrecio]) -> Tuple[List[int], List[int]]:
-        """
-        Retorna dos listas de índices:
-          - completos:   índices con todos los campos OHLC presentes
-          - faltantes:   índices con al menos un campo OHLC nulo
+        completos: List[int] = []
+        faltantes: List[int] = []
 
-        Complejidad: O(n)
-        """
-        completos  = []
-        faltantes  = []
-
-        for i, r in enumerate(registros):
-            if r.es_completo():
-                completos.append(i)
+        for indice, registro in enumerate(registros):
+            if registro.es_completo():
+                completos.append(indice)
             else:
-                faltantes.append(i)
+                faltantes.append(indice)
 
         return completos, faltantes
 
 
 class InterpoladorLineal:
-    """
-    Rellena valores faltantes mediante interpolación lineal.
-    Principio SRP: única responsabilidad de interpolación.
-
-    Justificación matemática:
-      Para dos puntos conocidos (x0, y0) y (x1, y1), el valor
-      interpolado en xi es:
-          y(xi) = y0 + (y1 - y0) * (xi - x0) / (x1 - x0)
-
-      Apropiado para series de precios donde los gaps suelen corresponder
-      a días festivos o interrupciones de mercado (los precios no hacen
-      saltos abruptos en esos periodos).
-
-    Limitación: no se interpola si el gap supera MAX_GAPS_INTERPOLACION
-    para evitar fabricar datos durante períodos de suspensión prolongada.
-
-    Complejidad: O(n) por campo, O(n * c) total donde c = número de campos.
-    """
-
-    CAMPOS = ["open", "high", "low", "close", "adj_close"]
+    CAMPOS = ["open", "high", "low", "close", "adj_close", "volume"]
 
     def __init__(self, max_gap: int = MAX_GAPS_INTERPOLACION):
         self._max_gap = max_gap
 
-    def interpolar(self, registros: List[RegistroPrecio]) -> List[RegistroPrecio]:
-        """
-        Aplica interpolación lineal en los campos OHLC y adj_close.
-        Modifica una copia de los registros para respetar inmutabilidad.
-        """
+    def interpolar(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], int]:
         resultado = copy.deepcopy(registros)
-        n = len(resultado)
+        total_interpolados = 0
 
         for campo in self.CAMPOS:
-            valores = [getattr(r, campo) for r in resultado]
-            valores = self._interpolar_campo(valores, n)
-            for i in range(n):
-                setattr(resultado[i], campo, valores[i])
+            valores = [getattr(registro, campo) for registro in resultado]
+            valores, interpolados = self._interpolar_campo(valores)
+            total_interpolados += interpolados
 
-        return resultado
+            for indice, valor in enumerate(valores):
+                if campo == "volume" and valor is not None:
+                    setattr(resultado[indice], campo, int(round(valor)))
+                else:
+                    setattr(resultado[indice], campo, valor)
 
-    def _interpolar_campo(self, valores: List[Optional[float]], n: int) -> List[Optional[float]]:
-        """
-        Interpola una lista de valores con Nones.
-        Itera una sola vez de izquierda a derecha: O(n).
-        """
-        i = 0
-        while i < n:
-            if valores[i] is None:
-                # Buscar el último valor válido antes del gap
-                izq = i - 1
-                v_izq = valores[izq] if izq >= 0 else None
+        return resultado, total_interpolados
 
-                # Buscar el siguiente valor válido después del gap
-                j = i + 1
-                while j < n and valores[j] is None:
-                    j += 1
+    def _interpolar_campo(self, valores: List[Optional[float]]) -> Tuple[List[Optional[float]], int]:
+        n = len(valores)
+        if n == 0:
+            return valores, 0
 
-                tamano_gap = j - i
+        rellenados = 0
+        indice = 0
 
-                if tamano_gap > self._max_gap:
-                    # Gap demasiado grande: forward fill si hay valor izquierdo
-                    # Decisión: preservar último conocido es menos erróneo
-                    # que interpolar durante suspensiones largas.
-                    if v_izq is not None:
-                        for k in range(i, min(j, n)):
-                            valores[k] = v_izq
-                    i = j
+        while indice < n:
+            if valores[indice] is not None:
+                indice += 1
+                continue
+
+            izquierda = indice - 1
+            valor_izq = valores[izquierda] if izquierda >= 0 else None
+
+            derecha = indice + 1
+            while derecha < n and valores[derecha] is None:
+                derecha += 1
+
+            longitud_gap = derecha - indice
+            valor_der = valores[derecha] if derecha < n else None
+
+            if longitud_gap > self._max_gap:
+                if valor_izq is not None:
+                    limite = min(derecha, n)
+                    for relleno in range(indice, limite):
+                        if valores[relleno] is None:
+                            valores[relleno] = valor_izq
+                            rellenados += 1
+                indice = derecha
+                continue
+
+            if valor_izq is not None and valor_der is not None:
+                pasos = derecha - izquierda
+                for relleno in range(indice, derecha):
+                    fraccion = (relleno - izquierda) / pasos
+                    valores[relleno] = valor_izq + fraccion * (valor_der - valor_izq)
+                    rellenados += 1
+            elif valor_izq is not None:
+                for relleno in range(indice, n):
+                    if valores[relleno] is None:
+                        valores[relleno] = valor_izq
+                        rellenados += 1
+            elif valor_der is not None:
+                for relleno in range(indice, derecha):
+                    valores[relleno] = valor_der
+                    rellenados += 1
+
+            indice = derecha
+
+        return valores, rellenados
+
+
+class LimpiadorCalidadDatos:
+    def __init__(
+        self,
+        max_gap: int = MAX_GAPS_INTERPOLACION,
+        umbral_anomalia: float = ZSCORE_UMBRAL_ANOMALIA,
+        estrategia_anomalias: str = "marcar",
+    ):
+        self._detector = DetectorValoresFaltantes()
+        self._interpolador = InterpoladorLineal(max_gap=max_gap)
+        self._umbral_anomalia = umbral_anomalia
+        self._estrategia_anomalias = estrategia_anomalias.lower().strip()
+
+    def limpiar(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], ResultadoLimpieza]:
+        resultado = ResultadoLimpieza(registros_entrada=len(registros))
+
+        if not registros:
+            return [], resultado
+
+        ordenados = copy.deepcopy(sorted(registros, key=lambda registro: (registro.fecha, registro.ticker)))
+        consolidados, duplicados = self._consolidar_duplicados(ordenados)
+        resultado.duplicados_consolidados = duplicados
+
+        _, faltantes = self._detector.detectar(consolidados)
+        resultado.faltantes_detectados = len(faltantes)
+
+        consolidados, detectadas, corregidas = self._corregir_inconsistencias(consolidados)
+        resultado.inconsistencias_detectadas = detectadas
+        resultado.inconsistencias_corregidas = corregidas
+
+        consolidados, interpolados = self._interpolador.interpolar(consolidados)
+        resultado.faltantes_interpolados = interpolados
+
+        consolidados, eliminados_irrecuperables = self._depurar_incompletos(consolidados)
+        resultado.registros_eliminados += eliminados_irrecuperables
+
+        consolidados, anomalias_detectadas, anomalias_marcadas, anomalias_eliminadas = self._tratar_anomalias(consolidados)
+        resultado.anomalias_detectadas = anomalias_detectadas
+        resultado.anomalias_marcadas = anomalias_marcadas
+        resultado.anomalias_eliminadas = anomalias_eliminadas
+
+        resultado.registros_salida = len(consolidados)
+        resultado.registros_eliminados = resultado.registros_entrada - resultado.registros_salida
+        return consolidados, resultado
+
+    def _consolidar_duplicados(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], int]:
+        if not registros:
+            return [], 0
+
+        consolidados: List[RegistroPrecio] = []
+        grupo_actual: List[RegistroPrecio] = [registros[0]]
+        duplicados = 0
+
+        for registro in registros[1:]:
+            if registro.fecha == grupo_actual[-1].fecha:
+                grupo_actual.append(registro)
+                continue
+
+            consolidados.append(self._fusionar_grupo(grupo_actual))
+            if len(grupo_actual) > 1:
+                duplicados += len(grupo_actual) - 1
+            grupo_actual = [registro]
+
+        consolidados.append(self._fusionar_grupo(grupo_actual))
+        if len(grupo_actual) > 1:
+            duplicados += len(grupo_actual) - 1
+
+        return consolidados, duplicados
+
+    def _fusionar_grupo(self, grupo: List[RegistroPrecio]) -> RegistroPrecio:
+        mejor = max(grupo, key=self._puntaje_registro)
+        fusionado = copy.deepcopy(mejor)
+
+        for registro in grupo:
+            for campo in ["open", "high", "low", "close", "adj_close", "volume"]:
+                if getattr(fusionado, campo) is None and getattr(registro, campo) is not None:
+                    setattr(fusionado, campo, getattr(registro, campo))
+
+        fusionado.anomalia = any(registro.anomalia for registro in grupo)
+        return fusionado
+
+    @staticmethod
+    def _puntaje_registro(registro: RegistroPrecio) -> int:
+        score = 0
+        for campo in ["open", "high", "low", "close", "adj_close"]:
+            if getattr(registro, campo) is not None:
+                score += 2
+        if registro.volume is not None:
+            score += 1
+        return score
+
+    def _corregir_inconsistencias(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], int, int]:
+        corregidos: List[RegistroPrecio] = []
+        detectadas = 0
+        corregidas = 0
+
+        for registro in registros:
+            registro = copy.deepcopy(registro)
+            detecto = False
+            corrigiendo = False
+
+            if any(valor is not None and valor < 0 for valor in [registro.open, registro.high, registro.low, registro.close, registro.adj_close]):
+                detecto = True
+                for campo in ["open", "high", "low", "adj_close"]:
+                    valor = getattr(registro, campo)
+                    if valor is not None and valor < 0:
+                        setattr(registro, campo, None)
+                        corrigiendo = True
+                if registro.close is not None and registro.close <= 0:
                     continue
 
-                v_der = valores[j] if j < n else None
+            if registro.high is not None and registro.low is not None and registro.high < registro.low:
+                registro.high, registro.low = registro.low, registro.high
+                detecto = True
+                corrigiendo = True
 
-                if v_izq is not None and v_der is not None:
-                    pasos = j - izq
-                    for k in range(i, j):
-                        fraccion  = (k - izq) / pasos
-                        valores[k] = v_izq + fraccion * (v_der - v_izq)
-                elif v_izq is not None:
-                    for k in range(i, n):
-                        if valores[k] is None:
-                            valores[k] = v_izq
-                elif v_der is not None:
-                    for k in range(i, j):
-                        valores[k] = v_der
+            if registro.high is None and registro.open is not None and registro.close is not None:
+                registro.high = max(registro.open, registro.close)
+                detecto = True
+                corrigiendo = True
 
-            i += 1
+            if registro.low is None and registro.open is not None and registro.close is not None:
+                registro.low = min(registro.open, registro.close)
+                detecto = True
+                corrigiendo = True
 
-        return valores
+            if registro.high is not None and registro.low is not None:
+                for campo in ["open", "close", "adj_close"]:
+                    valor = getattr(registro, campo)
+                    if valor is not None:
+                        valor_clamped = min(max(valor, registro.low), registro.high)
+                        if valor_clamped != valor:
+                            setattr(registro, campo, valor_clamped)
+                            detecto = True
+                            corrigiendo = True
 
+            if registro.volume is not None and registro.volume < 0:
+                registro.volume = None
+                detecto = True
+                corrigiendo = True
 
-class DetectorAnomalias:
-    """
-    Detecta retornos diarios estadísticamente anómalos usando Z-score.
-    Principio SRP: única responsabilidad de detección de outliers.
+            if detecto:
+                detectadas += 1
+            if corrigiendo:
+                corregidas += 1
 
-    Algoritmo:
-      1. Calcular retornos logarítmicos: r_t = ln(P_t / P_{t-1})
-      2. Calcular media μ y desviación estándar σ de los retornos
-      3. Marcar como anomalía si |z| = |(r_t - μ) / σ| > umbral
+            corregidos.append(registro)
 
-    Complejidad: O(n) — dos pasadas lineales (media, luego std)
+        return corregidos, detectadas, corregidas
 
-    Nota: se MARCA la anomalía pero NO se elimina el registro.
-    Eventos como el crash de COVID-19 (mar-2020) son retornos extremos
-    reales y deben preservarse para análisis de volatilidad.
-    """
+    def _depurar_incompletos(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], int]:
+        depurados: List[RegistroPrecio] = []
+        eliminados = 0
 
-    def __init__(self, umbral: float = ZSCORE_UMBRAL_ANOMALIA):
-        self._umbral = umbral
-
-    def detectar(self, registros: List[RegistroPrecio]) -> List[RegistroPrecio]:
-        """
-        Marca el campo `anomalia = True` en registros con retorno atípico.
-        Retorna la misma lista con las marcas actualizadas.
-        """
-        closes = [r.close for r in registros if r.close is not None]
-        if len(closes) < 2:
-            return registros
-
-        retornos = self._calcular_retornos_log(closes)
-        media, std = self._estadisticas(retornos)
-
-        if std < 1e-12:
-            return registros
-
-        idx_ret = 0
-        for i, registro in enumerate(registros):
-            if i == 0 or registro.close is None:
-                registro.anomalia = False
+        for registro in registros:
+            if registro.close is None:
+                eliminados += 1
                 continue
-            z = abs((retornos[idx_ret] - media) / std)
-            registro.anomalia = z > self._umbral
-            idx_ret += 1
 
-        return registros
+            if registro.open is None:
+                registro.open = registro.close
+            if registro.high is None:
+                registro.high = max(v for v in [registro.open, registro.close, registro.low] if v is not None)
+            if registro.low is None:
+                registro.low = min(v for v in [registro.open, registro.close, registro.high] if v is not None)
 
-    def _calcular_retornos_log(self, closes: List[float]) -> List[float]:
-        """
-        Retornos logarítmicos: ln(P_t / P_{t-1}).
-        Complejidad: O(n).
-        """
-        retornos = []
-        for i in range(1, len(closes)):
-            if closes[i] > 0 and closes[i - 1] > 0:
-                retornos.append(math.log(closes[i] / closes[i - 1]))
-            else:
-                retornos.append(0.0)
-        return retornos
+            depurados.append(registro)
 
-    def _estadisticas(self, retornos: List[float]) -> Tuple[float, float]:
-        """
-        Calcula media y desviación estándar poblacional.
-        Complejidad: O(n).
-        """
-        n    = len(retornos)
-        media = sum(retornos) / n
-        var   = sum((r - media) ** 2 for r in retornos) / n
-        return media, math.sqrt(var)
+        return depurados, eliminados
+
+    def _tratar_anomalias(self, registros: List[RegistroPrecio]) -> Tuple[List[RegistroPrecio], int, int, int]:
+        if len(registros) < 3:
+            return registros, 0, 0, 0
+
+        indices_validos: List[int] = []
+        retornos: List[float] = []
+
+        for indice in range(1, len(registros)):
+            previo = registros[indice - 1].close
+            actual = registros[indice].close
+            if previo is None or actual is None or previo <= 0 or actual <= 0:
+                continue
+            indices_validos.append(indice)
+            retornos.append(math.log(actual / previo))
+
+        if len(retornos) < 3:
+            return registros, 0, 0, 0
+
+        mediana = self._mediana(retornos)
+        mad = self._mad(retornos, mediana)
+
+        if mad < 1e-12:
+            media = sum(retornos) / len(retornos)
+            varianza = sum((r - media) ** 2 for r in retornos) / len(retornos)
+            desviacion = math.sqrt(varianza)
+            if desviacion < 1e-12:
+                return registros, 0, 0, 0
+            scores = {indice: abs((retorno - media) / desviacion) for indice, retorno in zip(indices_validos, retornos)}
+        else:
+            scores = {indice: abs(0.6745 * (retorno - mediana) / mad) for indice, retorno in zip(indices_validos, retornos)}
+
+        candidatos = {indice: score for indice, score in scores.items() if score > self._umbral_anomalia}
+        if not candidatos:
+            return registros, 0, 0, 0
+
+        if self._estrategia_anomalias == "eliminar":
+            depurados = [registro for indice, registro in enumerate(registros) if indice not in candidatos]
+            return depurados, len(candidatos), 0, len(candidatos)
+
+        if self._estrategia_anomalias == "winsorizar":
+            ajustados = copy.deepcopy(registros)
+            limite = self._umbral_anomalia * (mad / 0.6745 if mad >= 1e-12 else 1.0)
+            for indice, score in candidatos.items():
+                previo = ajustados[indice - 1].close
+                actual = ajustados[indice].close
+                if previo is None or actual is None or previo <= 0 or actual <= 0:
+                    continue
+                retorno_actual = math.log(actual / previo)
+                retorno_centrado = mediana if mad >= 1e-12 else 0.0
+                retorno_capturado = max(min(retorno_actual, retorno_centrado + limite), retorno_centrado - limite)
+                nuevo_close = previo * math.exp(retorno_capturado)
+                factor = nuevo_close / actual
+                ajustados[indice].close = nuevo_close
+                if ajustados[indice].open is not None:
+                    ajustados[indice].open *= factor
+                if ajustados[indice].high is not None:
+                    ajustados[indice].high *= factor
+                if ajustados[indice].low is not None:
+                    ajustados[indice].low *= factor
+                if ajustados[indice].adj_close is not None:
+                    ajustados[indice].adj_close *= factor
+                ajustados[indice].anomalia = True
+            return ajustados, len(candidatos), len(candidatos), 0
+
+        marcados = copy.deepcopy(registros)
+        for indice in candidatos:
+            marcados[indice].anomalia = True
+        return marcados, len(candidatos), len(candidatos), 0
+
+    @staticmethod
+    def _mediana(valores: List[float]) -> float:
+        ordenados = sorted(valores)
+        n = len(ordenados)
+        centro = n // 2
+        if n % 2 == 1:
+            return ordenados[centro]
+        return (ordenados[centro - 1] + ordenados[centro]) / 2
+
+    def _mad(self, valores: List[float], mediana: float) -> float:
+        desviaciones = [abs(valor - mediana) for valor in valores]
+        return self._mediana(desviaciones)
 
 
 class TransformadorSerie(ITransformador):
-    """
-    Pipeline de transformación/limpieza para una SerieHistorica.
-    Implementa ITransformador (Principio DIP).
-    Orquesta los tres componentes de limpieza (Principio SRP).
-
-    Flujo:
-      1. DetectorValoresFaltantes  → identifica registros incompletos
-      2. InterpoladorLineal        → rellena valores faltantes
-      3. DetectorAnomalias         → marca retornos atípicos
-    """
-
-    def __init__(self, logger: ILogger):
-        self._logger       = logger
-        self._detector     = DetectorValoresFaltantes()
-        self._interpolador = InterpoladorLineal()
-        self._anomalias    = DetectorAnomalias()
+    def __init__(
+        self,
+        logger: ILogger,
+        estrategia_anomalias: str = "marcar",
+        max_gap_interpolacion: int = MAX_GAPS_INTERPOLACION,
+    ):
+        self._logger = logger
+        self._limpiador = LimpiadorCalidadDatos(
+            max_gap=max_gap_interpolacion,
+            umbral_anomalia=ZSCORE_UMBRAL_ANOMALIA,
+            estrategia_anomalias=estrategia_anomalias,
+        )
 
     def transformar(self, serie: SerieHistorica) -> SerieHistorica:
-        """
-        Ejecuta el pipeline completo sobre la serie.
-        Retorna una nueva SerieHistorica con datos limpios.
-        """
         self._logger.info(f"Transformando {serie.ticker} ({serie.longitud()} registros)")
 
-        registros = serie.registros
+        registros_limpios, resultado = self._limpiador.limpiar(serie.registros)
 
-        # Paso 1: detectar faltantes
-        completos, faltantes = self._detector.detectar(registros)
-        if faltantes:
+        if resultado.faltantes_detectados:
+            self._logger.advertencia(f"{serie.ticker}: {resultado.faltantes_detectados} registros con valores faltantes")
+        if resultado.inconsistencias_detectadas:
             self._logger.advertencia(
-                f"{serie.ticker}: {len(faltantes)} registros con valores faltantes"
+                f"{serie.ticker}: {resultado.inconsistencias_detectadas} inconsistencias detectadas, {resultado.inconsistencias_corregidas} corregidas"
             )
+        if resultado.duplicados_consolidados:
+            self._logger.advertencia(f"{serie.ticker}: {resultado.duplicados_consolidados} duplicados consolidados")
+        if resultado.anomalias_detectadas:
+            if self._limpiador._estrategia_anomalias == "eliminar":
+                self._logger.advertencia(f"{serie.ticker}: {resultado.anomalias_eliminadas} anomalías eliminadas")
+            elif self._limpiador._estrategia_anomalias == "winsorizar":
+                self._logger.advertencia(f"{serie.ticker}: {resultado.anomalias_marcadas} anomalías corregidas")
+            else:
+                self._logger.advertencia(f"{serie.ticker}: {resultado.anomalias_marcadas} registros marcados como anomalía")
 
-        # Paso 2: interpolar
-        registros = self._interpolador.interpolar(registros)
-
-        # Paso 3: detectar anomalías
-        registros = self._anomalias.detectar(registros)
-        n_anomalias = sum(1 for r in registros if r.anomalia)
-        if n_anomalias:
-            self._logger.advertencia(
-                f"{serie.ticker}: {n_anomalias} registros marcados como anomalía"
-            )
-
-        # Construir nueva serie limpia
-        serie_limpia = SerieHistorica(ticker=serie.ticker, registros=registros)
-        self._logger.info(f"{serie.ticker}: transformación completada")
-
+        serie_limpia = SerieHistorica(ticker=serie.ticker, registros=registros_limpios)
+        self._logger.info(
+            f"{serie.ticker}: limpieza completada | entrada={resultado.registros_entrada}, salida={resultado.registros_salida}, eliminados={resultado.registros_eliminados}"
+        )
         return serie_limpia

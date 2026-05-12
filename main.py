@@ -1,6 +1,8 @@
 # =============================================================================
 # main.py — Punto de entrada del proyecto
 # =============================================================================
+import os
+
 from config import ACTIVOS_YAHOO, FECHA_INICIO, FECHA_FIN
 
 from etl.logger              import ConsoleFileLogger
@@ -15,6 +17,7 @@ from etl.pipeline            import PipelineETL
 def main():
     # ── Instanciar dependencias (Inyección de Dependencias) ──────────
     logger        = ConsoleFileLogger("logs/etl.log")
+    estrategia_anomalias = os.getenv("ESTRATEGIA_ANOMALIAS", "marcar")
     
     # Usar doble fuente: Yahoo + Google Finance
     extractor_yahoo  = ExtractorYahooFinance(logger)
@@ -39,7 +42,7 @@ def main():
     # extractor = ExtractorInvesting(logger)
     # activos = ACTIVOS_INVESTING
     
-    transformador = TransformadorSerie(logger)
+    transformador = TransformadorSerie(logger, estrategia_anomalias=estrategia_anomalias)
     cargador      = CargadorCSV(logger)
 
     # ── Crear y ejecutar pipeline ────────────────────────────────────

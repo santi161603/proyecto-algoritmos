@@ -1,46 +1,107 @@
-# Análisis de Algoritmos — BVC Project
-## Requerimiento 1: ETL de datos financieros
+# Proyecto: Análisis de Algoritmos — BVC
+
+Conjunto de utilidades para ETL financiero, comparación de series temporales,
+detección de patrones/volatilidad y generación de reportes visuales.
 
 ---
 
-## Estructura del proyecto
+## Estructura relevante
 
 ```
-proyecto_bvc/
-│
-├── config.py                      # Configuración global (activos, fechas, rutas)
-├── main.py                        # Punto de entrada
+proyecto-algoritmos/
+├── config.py
+├── main.py
 ├── requirements.txt
-│
 ├── etl/
-│   ├── __init__.py
-│   ├── interfaces.py              # Contratos abstractos (IExtractor, ITransformador, ICargador, ILogger)
-│   ├── models.py                  # Entidades del dominio (RegistroPrecio, SerieHistorica, Activo)
-│   ├── logger.py                  # ConsoleFileLogger
-│   ├── extractor_investing.py     # Scraper de Investing.com
-│   ├── transformador.py           # Limpieza: interpolación + detección de anomalías
-│   ├── cargador.py                # Persistencia CSV (individual + maestro)
-│   └── pipeline.py                # Orquestador ETL
-│
-├── data/
-│   ├── raw/                       # CSVs crudos por activo (generados automáticamente)
-│   ├── clean/                     # CSVs limpios por activo
-│   └── master_dataset.csv         # Dataset unificado long-format
-│
-├── logs/
-│   └── etl.log                    # Log de ejecución
-│
-└── reportes/                      # Salida del dashboard (Req. 4)
+├── data/               # raw/, clean/, master_dataset.csv
+├── reportes/           # Salida: PNG y PDF
+├── seguimiento3/
+└── web_app.py
 ```
 
 ---
 
-## Cómo ejecutar
+## Quickstart (Windows — PowerShell)
+
+1. Crear y activar entorno virtual
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+2. Instalar dependencias
+
+```powershell
+pip install -r requirements.txt
+```
+
+3. Ejecutar ETL (control de anomalías)
+
+```powershell
+# $env:ESTRATEGIA_ANOMALIAS = "marcar"  # opciones: marcar|eliminar|winsorizar
+python main.py
+```
+
+4. Lanzar interfaz web (dentro del `venv`)
+
+```powershell
+python -m streamlit run web_app.py
+```
+
+5. Salidas importantes
+
+- `data/master_dataset.csv` — dataset unificado (long-format)
+- `data/clean/*.csv` — series limpias por activo
+- `reportes/` — imágenes y `reporte_tecnico_dashboard.pdf`
+
+---
+
+## Archivos de interés
+
+- `etl/transformador.py` — limpieza y tratamiento de anomalías
+- `etl/similitud.py` — Euclidiana, Pearson, DTW, Coseno
+- `seguimiento3/analisis_seguimiento3.py` — runner de patrones y riesgos
+- `seguimiento4/dashboard_bursatil.py` — heatmap, candlesticks, PDF
+- `web_app.py` — Streamlit UI integradora
+
+---
+
+## Troubleshooting rápido
+
+- Ejecuta desde la raíz del repositorio.
+- Si aparece `ModuleNotFoundError`, activa el `venv` o ejecuta con `python -m`.
+- Para Streamlit, usa `python -m streamlit run web_app.py` dentro del `venv`.
+
+---
+
+## Documentación adicional
+
+- `PROJECT_README.md` — instrucciones operativas detalladas
+- `REQ2_MATEMATICA.md` — explicación matemática de similitud
+- `GUIA_IMPLEMENTACION.md` — plantillas y checklist
 
 ```bash
 pip install -r requirements.txt
 python main.py
 ```
+
+
+## Interfaz web (Dashboard)
+
+Ejecuta la interfaz web interactiva con Streamlit:
+
+```powershell
+c:/Users/Santiago/Documents/GitHub/proyecto-algoritmos/.venv/Scripts/python.exe -m streamlit run web_app.py
+```
+
+La app contiene pestañas para los Requerimientos 1–4 y permite ejecutar el ETL, comparar series,
+analizar patrones/volatilidad y generar el reporte técnico en PDF.
+
+## Documentación adicional
+
+- Explicación matemática y algoritmos de similitud: `REQ2_MATEMATICA.md`
+- README operativo y arquitectura del proyecto: `PROJECT_README.md`
 
 
 ## Cómo encontrar los curr_id de Investing.com

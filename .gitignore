@@ -1,0 +1,53 @@
+# Entorno virtual
+.venv/
+venv/
+ENV/
+env/
+
+# Caché Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/cache/
+
+# Logs
+logs/*.log
+*.log
+
+# Datos temporales
+tmp_*.py
+*.tmp
+
+# Reportes generados (comentar si se desean versionar)
+reportes/seguimiento*/
+reportes/*.png
+reportes/*.pdf
+
+# Caché de notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Otros
+*.bak
+*.swp
+.env
